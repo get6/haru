@@ -24,8 +24,10 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.2
+  intl: ^0.17.0
   logger: ^1.0.0
   wave: ^0.2.0
+  timeline_tile: ^2.0.0
 
 dev_dependencies:
   flutter_test:
