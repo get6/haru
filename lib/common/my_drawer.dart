@@ -33,31 +33,23 @@ class MyDrawer extends StatelessWidget {
           ),
         ),
         ListTile(
-          leading: const Icon(Icons.home),
-          title: const Text('Home'),
-          onTap: () {
-            Navigator.pushNamed(context, Routes.home);
-          },
-        ),
+            leading: const Icon(Icons.home),
+            title: const Text('Home'),
+            onTap: () => Navigator.pushNamed(context, Routes.home)),
         ListTile(
-          leading: const Icon(Icons.history),
-          title: const Text('Histories'),
-          onTap: () {
-            Navigator.pushNamed(context, Routes.histories);
-          },
-        ),
+            leading: const Icon(Icons.history),
+            title: const Text('Histories'),
+            onTap: () => Navigator.pushNamed(context, Routes.histories)),
         ListTile(
           leading: const Icon(Icons.timer),
           title: const Text('Timer'),
-          onTap: () {
-            Navigator.pushNamed(context, Routes.timer);
-          },
+          onTap: () => Navigator.pushNamed(context, Routes.timer),
         ),
         const Divider(thickness: 1),
         ListTile(
           leading: const Icon(Icons.settings),
           title: const Text('Settings'),
-          onTap: () {},
+          onTap: () => Navigator.pushNamed(context, Routes.settings),
         )
       ],
     ));
