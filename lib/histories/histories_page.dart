@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:haru/common/my_app_bar.dart';
+import 'package:haru/common/my_drawer.dart';
 
 class HistoriesPage extends StatelessWidget {
   static const routeName = '/histories';
@@ -6,6 +8,9 @@ class HistoriesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      appBar: MyAppBar(),
+      body: Container(),
+    );
   }
 }
