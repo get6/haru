@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:haru/home/widgets/today_add_page.dart';
 
 class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   final bool _isHome;
@@ -19,13 +20,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
           IconButton(
             onPressed: () {
               showModalBottomSheet(
-                context: context,
-                builder: (context) => Column(children: [
-                  ListTile(
-                    title: Text('123'),
-                  )
-                ]),
-              );
+                  context: context, builder: (context) => TodayAddModal());
             },
             icon: const Icon(Icons.add),
             splashRadius: Material.defaultSplashRadius / 2,

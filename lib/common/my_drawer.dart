@@ -45,6 +45,11 @@ class MyDrawer extends StatelessWidget {
           title: const Text('Timer'),
           onTap: () => Navigator.pushNamed(context, Routes.timer),
         ),
+        ListTile(
+          leading: const Icon(Icons.note),
+          title: const Text('Note'),
+          onTap: () => Navigator.pushNamed(context, Routes.notes),
+        ),
         const Divider(thickness: 1),
         ListTile(
           leading: const Icon(Icons.settings),
