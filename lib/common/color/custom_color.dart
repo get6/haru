@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 // 해당 프로젝트 주요 색상
 Color main_color = const Color(0xFFA5FFD6);
 // Color main_color = const Color(0xFF3ACBE8);
+Color button_color = Color(0xFF3ACBE8);
 Color accent_color = const Color(0xFFFFA5CE);
 
 MaterialColor createMaterialColor(Color color) {
