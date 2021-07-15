@@ -3,21 +3,51 @@
 part of 'schedule.dart';
 
 // **************************************************************************
-// JsonSerializableGenerator
+// TypeAdapterGenerator
 // **************************************************************************
 
-Schedule _$ScheduleFromJson(Map<String, dynamic> json) {
-  return Schedule(
-    id: json['id'] as int,
-    title: json['title'] as String,
-    startTime: json['startTime'] as String,
-    endTime: json['endTime'] as String,
-  );
-}
+class ScheduleAdapter extends TypeAdapter<Schedule> {
+  @override
+  final int typeId = 0;
 
-Map<String, dynamic> _$ScheduleToJson(Schedule instance) => <String, dynamic>{
-      'id': instance.id,
-      'title': instance.title,
-      'startTime': instance.startTime,
-      'endTime': instance.endTime,
+  @override
+  Schedule read(BinaryReader reader) {
+    final numOfFields = reader.readByte();
+    final fields = <int, dynamic>{
+      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
+    return Schedule(
+      id: fields[0] as int,
+      title: fields[1] as String,
+      startTime: fields[2] as TimeOfDay,
+      endTime: fields[3] as TimeOfDay,
+      createdAt: fields[4] as DateTime,
+    );
+  }
+
+  @override
+  void write(BinaryWriter writer, Schedule obj) {
+    writer
+      ..writeByte(5)
+      ..writeByte(0)
+      ..write(obj.id)
+      ..writeByte(1)
+      ..write(obj.title)
+      ..writeByte(2)
+      ..write(obj.startTime)
+      ..writeByte(3)
+      ..write(obj.endTime)
+      ..writeByte(4)
+      ..write(obj.createdAt);
+  }
+
+  @override
+  int get hashCode => typeId.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is ScheduleAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
+}

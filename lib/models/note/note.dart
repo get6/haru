@@ -1,13 +1,22 @@
+import 'package:hive/hive.dart';
+
+part 'note.g.dart';
+
+@HiveType(typeId: 1)
 class Note {
-  final String id;
+  @HiveField(0)
+  String? id;
+  @HiveField(1)
   final String title;
-  final String noteBody;
-  final DateTime timeAdded;
+  @HiveField(2)
+  final String body;
+  @HiveField(3)
+  DateTime? createdAt;
 
   Note({
-    required this.id,
+    this.id,
     required this.title,
-    required this.noteBody,
-    required this.timeAdded,
+    required this.body,
+    this.createdAt,
   });
 }
