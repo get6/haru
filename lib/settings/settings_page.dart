@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:haru/common/my_app_bar.dart';
 
 class SettingsPage extends StatelessWidget {
   static const routeName = '/settings';
@@ -8,7 +7,7 @@ class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MyAppBar(),
+      appBar: AppBar(backgroundColor: Colors.white, elevation: 0),
       body: Container(),
     );
   }

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:haru/common/color/custom_color.dart';
-import 'package:haru/common/my_app_bar.dart';
-import 'package:haru/common/my_drawer.dart';
+
+import 'package:haru/common/widgets/my_drawer.dart';
 import 'package:haru/home/widgets/analog_clock.dart';
 import 'package:haru/home/widgets/today_list_view.dart';
 import 'package:intl/intl.dart';
+
+import 'widgets/today_add_modal.dart';
 
 class MyHomePage extends StatefulWidget {
   static const routeName = '/';
@@ -15,19 +16,24 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: MyAppBar(isHome: true),
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        actions: [
+          IconButton(
+            onPressed: () {
+              showModalBottomSheet(
+                  context: context, builder: (context) => TodayAddModal());
+            },
+            icon: const Icon(Icons.add),
+            splashRadius: Material.defaultSplashRadius / 2,
+          )
+        ],
+        elevation: 0,
+      ),
       drawer: const MyDrawer(),
       body: SafeArea(
         child: Column(

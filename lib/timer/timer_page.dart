@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:haru/common/my_app_bar.dart';
-import 'package:haru/main.dart';
 import 'package:haru/timer/timer_background.dart';
 
 class TimerPage extends StatelessWidget {
@@ -10,7 +8,7 @@ class TimerPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MyAppBar(),
+      appBar: AppBar(backgroundColor: Colors.white, elevation: 0),
       body: Stack(
         children: [
           TimerBackground(),
