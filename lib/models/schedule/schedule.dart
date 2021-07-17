@@ -6,18 +6,15 @@ part 'schedule.g.dart';
 @HiveType(typeId: 0)
 class Schedule {
   @HiveField(0)
-  int id;
-  @HiveField(1)
   final String title;
-  @HiveField(2)
+  @HiveField(1)
   final TimeOfDay startTime;
-  @HiveField(3)
+  @HiveField(2)
   final TimeOfDay endTime;
-  @HiveField(4)
+  @HiveField(3)
   final DateTime createdAt;
 
   Schedule({
-    required this.id,
     required this.title,
     required this.startTime,
     required this.endTime,

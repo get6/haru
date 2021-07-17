@@ -17,24 +17,21 @@ class NoteAdapter extends TypeAdapter<Note> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return Note(
-      id: fields[0] as String?,
-      title: fields[1] as String,
-      body: fields[2] as String,
-      createdAt: fields[3] as DateTime?,
+      title: fields[0] as String,
+      body: fields[1] as String,
+      createdAt: fields[2] as DateTime?,
     );
   }
 
   @override
   void write(BinaryWriter writer, Note obj) {
     writer
-      ..writeByte(4)
-      ..writeByte(0)
-      ..write(obj.id)
-      ..writeByte(1)
-      ..write(obj.title)
-      ..writeByte(2)
-      ..write(obj.body)
       ..writeByte(3)
+      ..writeByte(0)
+      ..write(obj.title)
+      ..writeByte(1)
+      ..write(obj.body)
+      ..writeByte(2)
       ..write(obj.createdAt);
   }
 
