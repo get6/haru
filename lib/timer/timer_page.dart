@@ -1,28 +1,43 @@
-import 'package:flutter/material.dart';
-import 'package:haru/timer/timer_background.dart';
+import 'dart:ui';
 
-class TimerPage extends StatelessWidget {
+import 'package:flutter/material.dart';
+import 'package:haru/common/color/custom_color.dart';
+import 'package:haru/models/timer/timer_notifier.dart';
+import 'package:haru/timer/timer_actions.dart';
+import 'package:haru/timer/timer_background.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+
+class TimerPage extends ConsumerWidget {
   static const routeName = '/timer';
   const TimerPage({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ScopedReader watch) {
+    final timerModel = watch(timerProvider);
     return Scaffold(
-      appBar: AppBar(backgroundColor: Colors.white, elevation: 0),
+      appBar: AppBar(backgroundColor: timer_background_color, elevation: 0),
       body: Stack(
         children: [
-          TimerBackground(),
+          const TimerBackground(),
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Padding(
-                padding: EdgeInsets.symmetric(
+                padding: const EdgeInsets.symmetric(
                   vertical: 100,
                 ),
-              )
+                child: Text(
+                  timerModel.getTimeText(),
+                  style: const TextStyle(
+                    fontSize: 60,
+                    color: Colors.white,
+                    fontFeatures: [FontFeature.tabularFigures()],
+                  ),
+                ),
+              ),
+              TimerActions(),
             ],
-          )
+          ),
         ],
       ),
     );

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:haru/common/color/custom_color.dart';
 import 'package:wave/config.dart';
 import 'package:wave/wave.dart';
 
@@ -35,7 +36,7 @@ class TimerBackground extends StatelessWidget {
       ]),
       size: const Size(double.infinity, double.infinity),
       waveAmplitude: 25,
-      backgroundColor: Colors.blue[50],
+      backgroundColor: timer_background_color,
     );
   }
 }
