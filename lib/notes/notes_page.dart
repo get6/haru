@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:haru/common/color/custom_color.dart';
@@ -6,7 +9,7 @@ import 'package:haru/models/note/note.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-import 'notes_add_modal.dart';
+import 'notes_edit_modal.dart';
 
 class NotesPage extends StatelessWidget {
   static const routeName = '/notes';
@@ -23,8 +26,12 @@ class NotesPage extends StatelessWidget {
         actions: [
           IconButton(
             onPressed: () {
+              // TODO 키보드 입력시 위로 올라가기때문에 페이지로 전환 고민
               showModalBottomSheet(
-                  context: context, builder: (context) => NotesAddModal());
+                context: context,
+                builder: (context) => NotesEditModal(),
+                isScrollControlled: true,
+              );
             },
             icon: const Icon(Icons.add),
             splashRadius: Material.defaultSplashRadius / 2,
@@ -32,23 +39,22 @@ class NotesPage extends StatelessWidget {
         ],
         elevation: 0,
       ),
-      body: storeData.isEmpty
-          ? const Center(
-              child: Text(
-                'No Notes yet...😔',
-                style: TextStyle(fontSize: 18),
-              ),
-            )
-          : SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: ValueListenableBuilder(
-                  valueListenable: storeData.listenable(),
-                  builder: (context, Box<Note> notes, child) {
-                    final List<int> keys =
-                        notes.keys.cast<int>().toList().reversed.toList();
-
-                    return StaggeredGridView.countBuilder(
+      body: ValueListenableBuilder(
+        valueListenable: storeData.listenable(),
+        builder: (context, Box<Note> notes, child) {
+          final List<int> keys =
+              notes.keys.cast<int>().toList().reversed.toList();
+          return storeData.isEmpty
+              ? const Center(
+                  child: Text(
+                    'No Notes yet...😔',
+                    style: TextStyle(fontSize: 18),
+                  ),
+                )
+              : SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: StaggeredGridView.countBuilder(
                       physics: const NeverScrollableScrollPhysics(),
                       primary: false,
                       shrinkWrap: true,
@@ -106,7 +112,12 @@ class NotesPage extends StatelessWidget {
                                     Align(
                                       alignment: Alignment.bottomRight,
                                       child: IconButton(
-                                        onPressed: () {},
+                                        onPressed: () => showModalBottomSheet(
+                                          context: context,
+                                          builder: (context) =>
+                                              NotesEditModal(noteKey: key),
+                                          isScrollControlled: true,
+                                        ),
                                         icon: const Icon(
                                           Icons.edit,
                                           size: 18,
@@ -144,37 +155,51 @@ class NotesPage extends StatelessWidget {
                             .4;
                         return StaggeredTile.count(2, mainAxisCellCount);
                       },
-                    );
-                  },
-                ),
-              ),
-            ),
+                    ),
+                  ),
+                );
+        },
+      ),
     );
   }
 
   void deleteDialog(BuildContext context, int key) {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text('Warning'),
-        content: Text('Are you sure you want to delete this note?'),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context, 'Cancel'),
-            child: Text(
-              'Cancel',
-              style: TextStyle(color: button_color),
-            ),
-          ),
-          TextButton(
-            onPressed: () {
-              storeData.delete(key);
-              Navigator.pop(context, 'OK');
-            },
-            child: Text('OK', style: TextStyle(color: button_color)),
-          ),
-        ],
+    const title = Text('Warning');
+    const content = Text('Are you sure you want to delete this note?');
+    final actions = [
+      TextButton(
+        onPressed: () => Navigator.pop(context, 'Cancel'),
+        child: Text(
+          'Cancel',
+          style: TextStyle(color: button_color),
+        ),
       ),
-    );
+      TextButton(
+        onPressed: () {
+          storeData.delete(key);
+          Navigator.pop(context, 'OK');
+        },
+        child: Text('OK', style: TextStyle(color: button_color)),
+      ),
+    ];
+    if (Platform.isIOS) {
+      showCupertinoDialog(
+        context: context,
+        builder: (context) => CupertinoAlertDialog(
+          title: title,
+          content: content,
+          actions: actions,
+        ),
+      );
+    } else {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: title,
+          content: content,
+          actions: actions,
+        ),
+      );
+    }
   }
 }

@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 // 해당 프로젝트 주요 색상
 Color main_color = const Color(0xFFA5FFD6);
 // Color main_color = const Color(0xFF3ACBE8);
-Color button_color = Color(0xFF3ACBE8);
+Color button_color = const Color(0xFF3ACBE8);
 Color accent_color = const Color(0xFFFFA5CE);
+Color timer_background_color = Colors.blue[50]!;
+Color timer_button_color = const Color.fromRGBO(72, 74, 126, 1);
 
 MaterialColor createMaterialColor(Color color) {
   final List<double> strengths = [.05];
@@ -15,14 +17,14 @@ MaterialColor createMaterialColor(Color color) {
     strengths.add(0.1 * i);
   }
 
-  strengths.forEach((strength) {
+  for (final strength in strengths) {
     final double ds = 0.5 - strength;
     swatch[(strength * 1000).round()] = Color.fromRGBO(
         r + ((ds < 0 ? r : (255 - r)) * ds).round(),
         g + ((ds < 0 ? g : (255 - g)) * ds).round(),
         b + ((ds < 0 ? b : (255 - b)) * ds).round(),
         1);
-  });
+  }
 
   return MaterialColor(color.value, swatch);
 }
