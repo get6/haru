@@ -1,4 +1,4 @@
-package com.ittae.haru.haru
+package com.ittae.haru
 
 import io.flutter.embedding.android.FlutterActivity
 
