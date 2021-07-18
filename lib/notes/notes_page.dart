@@ -8,6 +8,7 @@ import 'package:haru/common/const_values.dart';
 import 'package:haru/models/note/note.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import '../common/const_values.dart';
 
 import 'notes_edit_modal.dart';
 
@@ -25,14 +26,17 @@ class NotesPage extends StatelessWidget {
         backgroundColor: Colors.white,
         actions: [
           IconButton(
-            onPressed: () {
-              // TODO 키보드 입력시 위로 올라가기때문에 페이지로 전환 고민
-              showModalBottomSheet(
-                context: context,
-                builder: (context) => NotesEditModal(),
-                isScrollControlled: true,
-              );
-            },
+            onPressed: () => showModalBottomSheet(
+              context: context,
+              isScrollControlled: true,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(borderRadiusCircular),
+              ),
+              builder: (context) => SizedBox(
+                height: MediaQuery.of(context).size.height * 0.8,
+                child: NotesEditModal(),
+              ),
+            ),
             icon: const Icon(Icons.add),
             splashRadius: Material.defaultSplashRadius / 2,
           )
