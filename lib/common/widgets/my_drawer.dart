@@ -33,28 +33,31 @@ class MyDrawer extends StatelessWidget {
           ),
         ),
         ListTile(
-            leading: const Icon(Icons.home),
-            title: const Text('Home'),
-            onTap: () => Navigator.pushNamed(context, Routes.home)),
+          leading: const Icon(Icons.home_outlined),
+          title: const Text('Home'),
+          onTap: () => ModalRoute.of(context)!.settings.name == Routes.home
+              ? Navigator.of(context).pop()
+              : Navigator.popAndPushNamed(context, Routes.home),
+        ),
         ListTile(
             leading: const Icon(Icons.history),
             title: const Text('Histories'),
-            onTap: () => Navigator.pushNamed(context, Routes.histories)),
+            onTap: () => Navigator.popAndPushNamed(context, Routes.histories)),
         ListTile(
           leading: const Icon(Icons.timer),
           title: const Text('Timer'),
-          onTap: () => Navigator.pushNamed(context, Routes.timer),
+          onTap: () => Navigator.popAndPushNamed(context, Routes.timer),
         ),
         ListTile(
-          leading: const Icon(Icons.note),
+          leading: const Icon(Icons.sticky_note_2_outlined),
           title: const Text('Note'),
-          onTap: () => Navigator.pushNamed(context, Routes.notes),
+          onTap: () => Navigator.popAndPushNamed(context, Routes.notes),
         ),
         const Divider(thickness: 1),
         ListTile(
-          leading: const Icon(Icons.settings),
+          leading: const Icon(Icons.settings_outlined),
           title: const Text('Settings'),
-          onTap: () => Navigator.pushNamed(context, Routes.settings),
+          onTap: () => Navigator.popAndPushNamed(context, Routes.settings),
         )
       ],
     ));

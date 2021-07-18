@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:haru/common/const_values.dart';
 
 import 'package:haru/common/widgets/my_drawer.dart';
 import 'package:haru/home/widgets/analog_clock.dart';
@@ -24,10 +25,17 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Colors.white,
         actions: [
           IconButton(
-            onPressed: () {
-              showModalBottomSheet(
-                  context: context, builder: (context) => TodayAddModal());
-            },
+            onPressed: () => showModalBottomSheet(
+              context: context,
+              isScrollControlled: true,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(borderRadiusCircular),
+              ),
+              builder: (context) => SizedBox(
+                height: MediaQuery.of(context).size.height * 0.8,
+                child: TodayAddModal(),
+              ),
+            ),
             icon: const Icon(Icons.add),
             splashRadius: Material.defaultSplashRadius / 2,
           )
