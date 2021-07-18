@@ -4,7 +4,7 @@ import 'package:haru/models/timer/timer_notifier.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class TimerActions extends ConsumerWidget {
-  TimerActions({Key? key}) : super(key: key);
+  const TimerActions({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, ScopedReader watch) {
@@ -29,6 +29,7 @@ class TimerActions extends ConsumerWidget {
 
   Widget timerFAB(IconData iconData, Function onPressed) {
     return FloatingActionButton(
+      heroTag: null,
       onPressed: () => onPressed(),
       backgroundColor: timer_button_color,
       child: Icon(iconData, color: Colors.white),

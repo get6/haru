@@ -35,7 +35,7 @@ class TimerPage extends ConsumerWidget {
                   ),
                 ),
               ),
-              TimerActions(),
+              const TimerActions(),
             ],
           ),
         ],
