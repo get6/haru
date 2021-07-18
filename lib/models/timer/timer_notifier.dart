@@ -7,15 +7,12 @@ class TimerModel extends ChangeNotifier {
   final Stopwatch _stopwatch = Stopwatch();
   Timer? _timer;
   Duration _currentDuration = Duration.zero;
-  TimerState state;
+  TimerState _state;
   int maxTime = (60 * 59) + 59;
 
-  TimerModel([this.state = TimerState.ready]);
+  TimerModel([this._state = TimerState.ready]);
 
-  void changeState(TimerState state) {
-    this.state = state;
-    notifyListeners();
-  }
+  TimerState get state => _state;
 
   void _onTick(Timer timer) {
     _currentDuration = _stopwatch.elapsed;
@@ -33,10 +30,10 @@ class TimerModel extends ChangeNotifier {
       _currentDuration = Duration.zero;
       // TODO 알람
     }
-
-    _timer = Timer.periodic(const Duration(seconds: 1), _onTick);
     _stopwatch.start();
-    changeState(TimerState.running);
+    _state = TimerState.running;
+    notifyListeners();
+    _timer = Timer.periodic(const Duration(seconds: 1), _onTick);
   }
 
   void pause() {
@@ -44,11 +41,13 @@ class TimerModel extends ChangeNotifier {
     _timer = null;
     _stopwatch.stop();
     _currentDuration = _stopwatch.elapsed;
-    changeState(TimerState.paused);
+    _state = TimerState.paused;
+    notifyListeners();
   }
 
   void resume() {
-    changeState(TimerState.running);
+    _state = TimerState.running;
+    notifyListeners();
   }
 
   void reset() {
@@ -56,7 +55,8 @@ class TimerModel extends ChangeNotifier {
     _timer = null;
     _stopwatch.reset();
     _currentDuration = Duration.zero;
-    changeState(TimerState.ready);
+    _state = TimerState.ready;
+    notifyListeners();
   }
 
   String getTimeText() {
