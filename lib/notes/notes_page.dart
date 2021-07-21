@@ -25,7 +25,7 @@ class NotesPage extends StatelessWidget {
       resizeToAvoidBottomInset: true,
       backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: storeData.isEmpty ? empty_color : Colors.white,
         actions: [
           IconButton(
             onPressed: () => openDialog(context),

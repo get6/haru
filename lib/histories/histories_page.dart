@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:haru/common/color/custom_color.dart';
 import 'package:haru/common/const_values.dart';
 import 'package:haru/common/empty_page.dart';
 import 'package:haru/models/schedule/schedule.dart';
@@ -23,10 +24,11 @@ class _HistoriesPageState extends State<HistoriesPage> {
 
   @override
   Widget build(BuildContext context) {
-    print(storeData.isEmpty);
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(backgroundColor: Colors.white, elevation: 0),
+      appBar: AppBar(
+          backgroundColor: storeData.isEmpty ? empty_color : Colors.white,
+          elevation: 0),
       body: storeData.isEmpty
           ? const EmptyPage(
               title: 'No schedules here! 😥',
