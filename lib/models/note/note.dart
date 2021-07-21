@@ -7,13 +7,13 @@ class Note {
   @HiveField(0)
   final String title;
   @HiveField(1)
-  final String body;
+  final String contents;
   @HiveField(2)
-  DateTime? createdAt;
+  final DateTime createdAt;
 
   Note({
     required this.title,
-    required this.body,
-    this.createdAt,
+    required this.contents,
+    required this.createdAt,
   });
 }

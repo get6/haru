@@ -8,9 +8,9 @@ class Schedule {
   @HiveField(0)
   final String title;
   @HiveField(1)
-  final TimeOfDay startTime;
+  final DateTime startTime;
   @HiveField(2)
-  final TimeOfDay endTime;
+  final DateTime endTime;
   @HiveField(3)
   final DateTime createdAt;
 

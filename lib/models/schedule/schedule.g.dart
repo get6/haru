@@ -18,8 +18,8 @@ class ScheduleAdapter extends TypeAdapter<Schedule> {
     };
     return Schedule(
       title: fields[0] as String,
-      startTime: fields[1] as TimeOfDay,
-      endTime: fields[2] as TimeOfDay,
+      startTime: fields[1] as DateTime,
+      endTime: fields[2] as DateTime,
       createdAt: fields[3] as DateTime,
     );
   }
