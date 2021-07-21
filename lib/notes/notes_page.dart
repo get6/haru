@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:haru/common/color/custom_color.dart';
 import 'package:haru/common/const_values.dart';
+import 'package:haru/common/empty_page.dart';
 import 'package:haru/models/note/note.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -40,11 +41,9 @@ class NotesPage extends StatelessWidget {
           final List<int> keys =
               notes.keys.cast<int>().toList().reversed.toList();
           return storeData.isEmpty
-              ? const Center(
-                  child: Text(
-                    'No Notes yet...😔',
-                    style: TextStyle(fontSize: 18),
-                  ),
+              ? const EmptyPage(
+                  title: 'No notes here! 😥',
+                  subtitle: 'Try to click the add button on top! 😆',
                 )
               : SingleChildScrollView(
                   child: Padding(
