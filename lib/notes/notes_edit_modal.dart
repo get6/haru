@@ -5,8 +5,8 @@ import 'package:hive/hive.dart';
 
 class NotesEditModal extends StatefulWidget {
   static const routeName = '/notesEdit';
-
   int? noteKey;
+
   NotesEditModal({Key? key, this.noteKey}) : super(key: key);
 
   @override
@@ -16,28 +16,31 @@ class NotesEditModal extends StatefulWidget {
 class _NotesEditModalState extends State<NotesEditModal> {
   final _formKey = GlobalKey<FormState>();
   late Box<Note> storeData;
-  final TextEditingController _noteTitle = TextEditingController();
-  final TextEditingController _noteBody = TextEditingController();
+  late TextEditingController titleController;
+  late TextEditingController contentsController;
 
   @override
   void initState() {
     super.initState();
     storeData = Hive.box(noteBox);
+
+    titleController = TextEditingController();
+    contentsController = TextEditingController();
   }
 
   @override
   void dispose() {
+    titleController.dispose();
+    contentsController.dispose();
     super.dispose();
-    _noteTitle.dispose();
-    _noteBody.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     if (widget.noteKey != null) {
       final Note note = storeData.get(widget.noteKey)!;
-      _noteTitle.text = note.title;
-      _noteBody.text = note.body;
+      titleController.text = note.title;
+      contentsController.text = note.contents;
     }
 
     return Container(
@@ -48,9 +51,9 @@ class _NotesEditModalState extends State<NotesEditModal> {
           topRight: Radius.circular(borderRadiusCircular),
         ),
         image: DecorationImage(
-          // image: AssetImage('assets/images/desert.png'),
-          image: AssetImage('assets/images/eagle_desert.jpeg'),
+          image: AssetImage('assets/images/yosemite.png'),
           fit: BoxFit.cover,
+          alignment: Alignment(0.4, 0),
         ),
       ),
       child: Column(
@@ -60,7 +63,8 @@ class _NotesEditModalState extends State<NotesEditModal> {
             padding: const EdgeInsets.all(15),
             decoration: const BoxDecoration(
               color: Colors.white,
-              borderRadius: BorderRadius.all(Radius.circular(25.0)),
+              borderRadius:
+                  BorderRadius.all(Radius.circular(borderRadiusCircular)),
             ),
             child: Form(
               key: _formKey,
@@ -68,21 +72,39 @@ class _NotesEditModalState extends State<NotesEditModal> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const SizedBox(height: 10),
-                  TextField(
-                    controller: _noteTitle,
-                    decoration: InputDecoration(
+                  Center(
+                    child: Text('Make a new note!',
+                        style: Theme.of(context).textTheme.overline),
+                  ),
+                  const SizedBox(height: 20),
+                  TextFormField(
+                    controller: titleController,
+                    decoration: const InputDecoration(
+                      labelText: 'Title',
                       border: OutlineInputBorder(),
                     ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter a title';
+                      }
+                      return null;
+                    },
                   ),
-                  const SizedBox(height: 10),
-                  TextField(
-                    controller: _noteBody,
+                  const SizedBox(height: 20),
+                  TextFormField(
+                    controller: contentsController,
                     textCapitalization: TextCapitalization.sentences,
                     maxLines: 5,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
+                      labelText: 'Contents',
                       border: OutlineInputBorder(),
                     ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter contents';
+                      }
+                      return null;
+                    },
                   ),
                   const SizedBox(height: 10),
                   Row(
@@ -117,23 +139,34 @@ class _NotesEditModalState extends State<NotesEditModal> {
     );
   }
 
-  void saveNote() {
-    final String title = _noteTitle.text;
-    final String body = _noteBody.text;
-    if (widget.noteKey != null) {
-      final addedNote = storeData.get(widget.noteKey)!;
-      final note =
-          Note(title: title, body: body, createdAt: addedNote.createdAt);
-      storeData.putAt(widget.noteKey!, note);
-    } else {
-      final Note note =
-          Note(title: title, body: body, createdAt: DateTime.now());
-      storeData.add(note);
-    }
+  void saveNote() async {
+    if (_formKey.currentState!.validate()) {
+      final title = titleController.text;
+      final body = contentsController.text;
 
-    Navigator.of(context).pop();
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Saved note!')),
-    );
+      if (widget.noteKey != null) {
+        // Update
+        final editedNote = storeData.get(widget.noteKey)!;
+        await storeData.putAt(
+            widget.noteKey!,
+            Note(
+              title: title,
+              contents: body,
+              createdAt: editedNote.createdAt,
+            ));
+      } else {
+        // Save
+        await storeData.add(Note(
+          title: title,
+          contents: body,
+          createdAt: DateTime.now(),
+        ));
+      }
+
+      Navigator.of(context).pop();
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Saved a note!')),
+      );
+    }
   }
 }

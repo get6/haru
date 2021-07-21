@@ -12,6 +12,7 @@ import '../common/const_values.dart';
 
 import 'notes_edit_modal.dart';
 
+// TODO contents 스크롤 가능하게?, 색과 노트 길이 수정
 class NotesPage extends StatelessWidget {
   static const routeName = '/notes';
   Box<Note> storeData = Hive.box<Note>(noteBox);
@@ -26,17 +27,7 @@ class NotesPage extends StatelessWidget {
         backgroundColor: Colors.white,
         actions: [
           IconButton(
-            onPressed: () => showModalBottomSheet(
-              context: context,
-              isScrollControlled: true,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(borderRadiusCircular),
-              ),
-              builder: (context) => SizedBox(
-                height: MediaQuery.of(context).size.height * 0.8,
-                child: NotesEditModal(),
-              ),
-            ),
+            onPressed: () => openDialog(context),
             icon: const Icon(Icons.add),
             splashRadius: Material.defaultSplashRadius / 2,
           )
@@ -107,7 +98,7 @@ class NotesPage extends StatelessWidget {
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 16.0),
                                   child: Text(
-                                    note.body,
+                                    note.contents,
                                     softWrap: true,
                                   ),
                                 ),
@@ -116,12 +107,8 @@ class NotesPage extends StatelessWidget {
                                     Align(
                                       alignment: Alignment.bottomRight,
                                       child: IconButton(
-                                        onPressed: () => showModalBottomSheet(
-                                          context: context,
-                                          builder: (context) =>
-                                              NotesEditModal(noteKey: key),
-                                          isScrollControlled: true,
-                                        ),
+                                        onPressed: () =>
+                                            openDialog(context, noteKey: key),
                                         icon: const Icon(
                                           Icons.edit,
                                           size: 18,
@@ -152,17 +139,33 @@ class NotesPage extends StatelessWidget {
                       staggeredTileBuilder: (index) {
                         final key = keys[index];
                         final Note? note = notes.get(key);
-                        final int bodyLength = note!.body.length;
+                        final int bodyLength = note!.contents.length;
                         final double mainAxisCellCount = (bodyLength < 10
                                 ? 1
                                 : int.parse(bodyLength.toString()[0])) +
-                            .4;
+                            .5;
                         return StaggeredTile.count(2, mainAxisCellCount);
                       },
                     ),
                   ),
                 );
         },
+      ),
+    );
+  }
+
+  void openDialog(BuildContext context, {int? noteKey}) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(borderRadiusCircular),
+      ),
+      builder: (context) => SizedBox(
+        height: MediaQuery.of(context).size.height * 0.8,
+        child: noteKey == null
+            ? NotesEditModal()
+            : NotesEditModal(noteKey: noteKey),
       ),
     );
   }

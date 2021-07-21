@@ -4,12 +4,14 @@ import 'package:haru/common/const_values.dart';
 import 'package:haru/common/widgets/my_drawer.dart';
 import 'package:haru/home/widgets/analog_clock.dart';
 import 'package:haru/home/widgets/today_list_view.dart';
-import 'package:intl/intl.dart';
+import 'package:haru/models/schedule/schedule.dart';
+import 'package:hive/hive.dart';
 
 import 'widgets/today_add_modal.dart';
 
 class MyHomePage extends StatefulWidget {
   static const routeName = '/';
+
   const MyHomePage({Key? key}) : super(key: key);
 
   @override
@@ -17,8 +19,18 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  late Box<Schedule> storeData;
+
+  @override
+  void initState() {
+    super.initState();
+    storeData = Hive.box(scheduleBox);
+  }
+
   @override
   Widget build(BuildContext context) {
+    final List<Schedule> schedules =
+        storeData.keys.cast<int>().map((key) => storeData.get(key)!).toList();
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -47,14 +59,12 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           children: [
             // 날짜 앞에 이모지 30개 해서 매일 바꾸게끔 폰트도 정하기
-            Text(
-              DateFormat('yyyy.MM.dd').format(DateTime.now()).toString(),
-              style: Theme.of(context).textTheme.headline4,
+            SizedBox(
+              height: 300,
+              child: AnalogClock(),
             ),
-            const SizedBox(height: 10),
-            Flexible(child: AnalogClock()),
             Expanded(
-              child: TodayListView(),
+              child: TodayListView(schedules: schedules),
             ),
           ],
         ),

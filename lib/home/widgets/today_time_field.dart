@@ -1,32 +1,37 @@
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:day_night_time_picker/day_night_time_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:haru/common/const_values.dart';
 import 'package:intl/intl.dart';
 
 class TodayTimeField extends StatelessWidget {
-  TextEditingController timeController = TextEditingController();
-  TimeOfDay value;
+  DateTime time;
   String labelText;
-  String validateText;
+  TextEditingController timeController;
+  TextEditingController otherTimeController;
 
   TodayTimeField({
     Key? key,
-    required this.value,
+    required this.time,
     required this.labelText,
-    required this.validateText,
+    required this.timeController,
+    required this.otherTimeController,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return DateTimeField(
       controller: timeController,
-      decoration: InputDecoration(labelText: labelText),
+      decoration: InputDecoration(
+        labelText: labelText,
+        border: const OutlineInputBorder(),
+      ),
       format: DateFormat("HH:mm"),
       onShowPicker: (context, currentValue) async {
         Navigator.of(context).push(
           showPicker(
             context: context,
-            value: value,
+            value: TimeOfDay.fromDateTime(time),
             onChange: onTimeChanged,
           ),
         );
@@ -34,18 +39,32 @@ class TodayTimeField extends StatelessWidget {
       },
       validator: (value) {
         if (value == null) {
-          return validateText;
+          return 'Please enter $labelText';
         }
+
+        if (otherTimeController.text.isNotEmpty) {
+          final otherText = otherTimeController.text;
+          final hour = int.parse(otherText.split(":")[0]);
+          final minute = int.parse(otherText.split(":")[1]);
+          final otherValue =
+              DateTime(value.year, value.month, value.day, hour, minute);
+          if (labelText == 'Start Time' && !value.isBefore(otherValue)) {
+            return '$labelText must come before the End Time';
+          }
+
+          if (labelText == 'End Time' && !value.isAfter(otherValue)) {
+            return '$labelText must come after the Start Time';
+          }
+        }
+
         return null;
       },
-      onFieldSubmitted: (value) {},
     );
   }
 
   void onTimeChanged(TimeOfDay newTime) {
-    value = newTime;
-    timeController.value = TextEditingValue(
-        text:
-            '${value.hour < 10 ? '0${value.hour}' : value.hour}:${value.minute < 10 ? '0${value.minute}' : value.minute}');
+    time = getTime(newTime.hour, newTime.minute);
+    timeController.text =
+        '${padLeftForTime(newTime.hour)}:${padLeftForTime(newTime.minute)}';
   }
 }

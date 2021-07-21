@@ -80,8 +80,8 @@ void main() async {
   // });
 
   await Hive.initFlutter();
-  Hive.registerAdapter(ScheduleAdapter());
-  Hive.registerAdapter(NoteAdapter());
+  Hive.registerAdapter<Schedule>(ScheduleAdapter());
+  Hive.registerAdapter<Note>(NoteAdapter());
   await Hive.openBox<Schedule>(scheduleBox);
   await Hive.openBox<Note>(noteBox);
 
