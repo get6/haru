@@ -5,6 +5,7 @@ Color main_color = const Color(0xFFA5FFD6);
 // Color main_color = const Color(0xFF3ACBE8);
 Color button_color = const Color(0xFF3ACBE8);
 Color accent_color = const Color(0xFFFFA5CE);
+Color empty_color = const Color(0xFFF8FAFB);
 Color timer_background_color = Colors.blue[50]!;
 Color timer_button_color = const Color.fromRGBO(72, 74, 126, 1);
 
