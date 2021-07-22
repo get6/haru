@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:haru/common/const_values.dart';
 
 import 'package:haru/common/widgets/my_drawer.dart';
-import 'package:haru/home/widgets/analog_clock.dart';
+import 'package:haru/home/clocks/neumorphic/neumorphic_clock.dart';
 import 'package:haru/home/widgets/today_list_view.dart';
 import 'package:haru/models/schedule/schedule.dart';
 import 'package:hive/hive.dart';
 
+import 'clocks/plain/analog_clock.dart';
 import 'widgets/today_add_modal.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -29,6 +30,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    precacheImage(const AssetImage(todayAddModalBackgrounImage), context);
     final List<Schedule> schedules =
         storeData.keys.cast<int>().map((key) => storeData.get(key)!).toList();
     return Scaffold(
@@ -59,10 +61,11 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           children: [
             // 날짜 앞에 이모지 30개 해서 매일 바꾸게끔 폰트도 정하기
-            SizedBox(
-              height: 300,
-              child: AnalogClock(),
-            ),
+            // SizedBox(
+            //   height: 300,
+            //   child: AnalogClock(),
+            // ),
+            NeumorphicClock(),
             Expanded(
               child: TodayListView(schedules: schedules),
             ),

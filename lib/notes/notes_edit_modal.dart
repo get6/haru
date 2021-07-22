@@ -51,7 +51,7 @@ class _NotesEditModalState extends State<NotesEditModal> {
           topRight: Radius.circular(borderRadiusCircular),
         ),
         image: DecorationImage(
-          image: AssetImage('assets/images/yosemite.png'),
+          image: AssetImage(noteEditModalBackgrounImage),
           fit: BoxFit.cover,
           alignment: Alignment(0.4, 0),
         ),
