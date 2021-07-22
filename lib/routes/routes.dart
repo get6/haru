@@ -4,6 +4,7 @@ import 'package:haru/notes/notes_edit_modal.dart';
 import 'package:haru/notes/notes_page.dart';
 import 'package:haru/settings/settings_page.dart';
 import 'package:haru/timer/timer_page.dart';
+import 'package:haru/about/about_us_page.dart';
 
 class Routes {
   static const String home = MyHomePage.routeName;
@@ -12,4 +13,5 @@ class Routes {
   static const String notesEdit = NotesEditModal.routeName;
   static const String timer = TimerPage.routeName;
   static const String settings = SettingsPage.routeName;
+  static const String about = AboutPage.routeName;
 }

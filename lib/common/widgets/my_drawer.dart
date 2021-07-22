@@ -53,6 +53,11 @@ class MyDrawer extends StatelessWidget {
           title: const Text('Note'),
           onTap: () => Navigator.popAndPushNamed(context, Routes.notes),
         ),
+        ListTile(
+          leading: const Icon(Icons.person),
+          title: const Text('About Us'),
+          onTap: () => Navigator.popAndPushNamed(context, Routes.about),
+        ),
         const Divider(thickness: 1),
         ListTile(
           leading: const Icon(Icons.settings_outlined),
