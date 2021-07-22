@@ -54,7 +54,7 @@ class _TodayAddModalState extends State<TodayAddModal> {
           topRight: Radius.circular(borderRadiusCircular),
         ),
         image: DecorationImage(
-          image: AssetImage('assets/images/landscape.jpeg'),
+          image: AssetImage(todayAddModalBackgrounImage),
           fit: BoxFit.cover,
         ),
       ),
@@ -80,9 +80,15 @@ class _TodayAddModalState extends State<TodayAddModal> {
                   const SizedBox(height: 20),
                   TextFormField(
                     controller: titleController,
-                    decoration: const InputDecoration(
+                    maxLength: 20,
+                    decoration: InputDecoration(
                       labelText: "Title",
-                      border: OutlineInputBorder(),
+                      suffixIcon: titleController.text.isNotEmpty
+                          ? IconButton(
+                              onPressed: () => titleController.clear(),
+                              icon: const Icon(Icons.clear))
+                          : null,
+                      border: const OutlineInputBorder(),
                     ),
                     validator: (value) {
                       if (value == null || value.isEmpty) {

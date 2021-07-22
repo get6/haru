@@ -6,6 +6,8 @@ final Logger logger = Logger();
 const String noteBox = 'noteBox';
 const String scheduleBox = 'scheduleBox';
 const double borderRadiusCircular = 30.0;
+const String todayAddModalBackgrounImage = 'assets/images/landscape.jpeg';
+const String noteEditModalBackgrounImage = 'assets/images/yosemite.png';
 
 String padLeftForTime(int number) {
   return number.toString().padLeft(2, '0');
