@@ -14,16 +14,15 @@ class EmptyPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(color: empty_color),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Image.asset(
-            'assets/images/nothing.png',
-            fit: BoxFit.cover,
-          ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+      child: Center(
+        child: SizedBox(
+          height: MediaQuery.of(context).size.height / 1.8,
+          child: Column(
             children: [
+              Image.asset(
+                'assets/images/nothing.png',
+                fit: BoxFit.cover,
+              ),
               Text(
                 title,
                 style: Theme.of(context)
@@ -40,8 +39,7 @@ class EmptyPage extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(height: 200),
-        ],
+        ),
       ),
     );
   }
