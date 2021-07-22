@@ -1,5 +1,6 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
-import 'package:haru/common/color/custom_color.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 
 import 'schedule.dart';
@@ -26,7 +27,10 @@ class ScheduleDataSource extends CalendarDataSource {
 
   @override
   Color getColor(int index) {
-    return main_color;
+    // TODO 색을 어떻게 바꿀지 생각!
+    final _random = Random();
+    final color = Colors.primaries[_random.nextInt(Colors.primaries.length)];
+    return color;
   }
 
   @override
