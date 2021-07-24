@@ -27,10 +27,7 @@ class ScheduleDataSource extends CalendarDataSource {
 
   @override
   Color getColor(int index) {
-    // TODO 색을 어떻게 바꿀지 생각!
-    final _random = Random();
-    final color = Colors.primaries[_random.nextInt(Colors.primaries.length)];
-    return color;
+    return Color(_getScheduleData(index).color);
   }
 
   @override

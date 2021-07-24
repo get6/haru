@@ -18,23 +18,26 @@ class ScheduleAdapter extends TypeAdapter<Schedule> {
     };
     return Schedule(
       title: fields[0] as String,
-      startTime: fields[1] as DateTime,
-      endTime: fields[2] as DateTime,
-      createdAt: fields[3] as DateTime,
+      color: fields[1] as int,
+      startTime: fields[2] as DateTime,
+      endTime: fields[3] as DateTime,
+      createdAt: fields[4] as DateTime,
     );
   }
 
   @override
   void write(BinaryWriter writer, Schedule obj) {
     writer
-      ..writeByte(4)
+      ..writeByte(5)
       ..writeByte(0)
       ..write(obj.title)
       ..writeByte(1)
-      ..write(obj.startTime)
+      ..write(obj.color)
       ..writeByte(2)
-      ..write(obj.endTime)
+      ..write(obj.startTime)
       ..writeByte(3)
+      ..write(obj.endTime)
+      ..writeByte(4)
       ..write(obj.createdAt);
   }
 
