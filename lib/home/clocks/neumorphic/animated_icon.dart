@@ -44,7 +44,8 @@ class AnimatedClockIcon extends StatelessWidget {
                       child: Icon(
                         icon,
                         size: 17 * unit,
-                        color: Colors.grey[400]!.withOpacity(0.1),
+                        // color: Colors.grey[400]!.withOpacity(0.1),
+                        color: Colors.indigo,
                         // color: button_color,
                         key: ValueKey(icon),
                       )),

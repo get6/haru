@@ -17,20 +17,32 @@ class AnimatedContainerHand extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (now == 0) {
-      return TweenAnimationBuilder(
+      return TweenAnimationBuilder<double>(
         key: const ValueKey('special_case_when_overflowing'),
         tween: Tween(begin: value(now - 1), end: value(now)),
         duration: const Duration(microseconds: 300),
         curve: Curves.easeInQuint,
-        builder: (context, double value, child) => ContainerHand(
+        builder: (context, value, child) => ContainerHand(
           color: Colors.transparent,
           size: size,
           angleRadians: value,
           child: child,
         ),
+        child: child,
       );
     }
-    return Container();
+    return TweenAnimationBuilder<double>(
+      key: const ValueKey('normal_case'),
+      tween: Tween(begin: value(now - 1), end: value(now)),
+      duration: const Duration(milliseconds: 300),
+      builder: (context, value, child) => ContainerHand(
+        color: Colors.transparent,
+        size: size,
+        angleRadians: value,
+        child: child,
+      ),
+      child: child,
+    );
   }
 
   double value(int second) {

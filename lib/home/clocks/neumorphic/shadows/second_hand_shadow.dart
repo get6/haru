@@ -13,10 +13,10 @@ class SecondHandShadow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Transform.translate(
-      offset: Offset(unit / 2, unit / 1.9),
+      offset: Offset(unit / 2, unit / 2),
       child: AnimatedContainerHand(
         now: now.second,
-        size: .6,
+        size: .5,
         child: Container(
           width: unit / 3,
           height: double.infinity,
