@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:haru/home/clocks/neumorphic/hands/hand.dart';
+
+import 'hand.dart';
 
 class ContainerHand extends Hand {
   /// The child widget used as the clock hand and rotated by [angleRadians].

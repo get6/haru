@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:haru/home/clocks/neumorphic/hands/animated_container_hand.dart';
+import 'package:haru/home/clocks/neumorphic/widgets/hands/animated_container_hand.dart';
 
 class MinuteHandShadow extends StatelessWidget {
   final double unit;

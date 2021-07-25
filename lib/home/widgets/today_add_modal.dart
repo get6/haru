@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:haru/common/const_values.dart';
 import 'package:haru/home/widgets/today_time_field.dart';
@@ -147,9 +149,11 @@ class _TodayAddModalState extends State<TodayAddModal> {
     if (_formKey.currentState!.validate()) {
       final startText = startController.text;
       final endText = endController.text;
-
+      final _random = Random();
+      final color = Colors.primaries[_random.nextInt(Colors.primaries.length)];
       await storeData.add(Schedule(
         title: titleController.text,
+        color: color.value,
         startTime: getTime(int.parse(startText.split(":")[0]),
             int.parse(startText.split(":")[1])),
         endTime: getTime(

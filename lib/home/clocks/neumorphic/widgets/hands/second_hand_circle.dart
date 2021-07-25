@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:haru/home/clocks/neumorphic/hands/animated_container_hand.dart';
+import 'animated_container_hand.dart';
 
 class SecondHandCircle extends StatelessWidget {
   final double unit;

@@ -25,8 +25,6 @@ void main() async {
   runApp(ProviderScope(child: MyApp()));
 }
 
-String? selectedNotificationPayload;
-
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

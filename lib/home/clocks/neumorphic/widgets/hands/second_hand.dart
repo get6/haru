@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/semantics.dart';
-import 'package:haru/home/clocks/neumorphic/hands/animated_container_hand.dart';
+import 'animated_container_hand.dart';
 
 class SecondHand extends StatelessWidget {
   final double unit;

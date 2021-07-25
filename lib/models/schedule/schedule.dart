@@ -1,5 +1,6 @@
-import 'package:flutter/material.dart';
+import 'package:haru/common/const_values.dart';
 import 'package:hive/hive.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 part 'schedule.g.dart';
 
@@ -23,4 +24,41 @@ class Schedule {
     required this.endTime,
     required this.createdAt,
   });
+}
+
+final scheduleBoxProvider =
+    StateProvider<Box<Schedule>>((ref) => Hive.box(scheduleBox));
+
+final scheduleRepositoryProvider =
+    Provider((ref) => ScheduleRepository(ref.read));
+
+class ScheduleRepository {
+  ScheduleRepository(this.read);
+
+  final Reader read;
+
+  List<Schedule> fetchSchedules() {
+    final Box<Schedule> storeData = read(scheduleBoxProvider).state;
+    return storeData.keys
+        .cast<int>()
+        .map((key) => storeData.get(key)!)
+        .toList();
+  }
+
+  List<Schedule> fetchTodaySchedules() {
+    final Box<Schedule> storeData = read(scheduleBoxProvider).state;
+    return storeData.keys
+        .cast<int>()
+        .where((key) {
+          final schedule = storeData.get(key);
+          final today = DateTime.now();
+          final startTime =
+              DateTime(today.year, today.month, today.day - 1, 23, 59);
+          final endTime = DateTime(today.year, today.month, today.day + 1);
+          return schedule!.startTime.isAfter(startTime) &&
+              schedule.endTime.isBefore(endTime);
+        })
+        .map((key) => storeData.get(key)!)
+        .toList();
+  }
 }

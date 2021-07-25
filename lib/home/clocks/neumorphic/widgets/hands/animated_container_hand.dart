@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:haru/home/clocks/neumorphic/hands/container_hand.dart';
 
-import '../neumorphic_clock.dart';
+import '../../neumorphic_clock.dart';
+import 'container_hand.dart';
 
 class AnimatedContainerHand extends StatelessWidget {
   final int now;
@@ -20,8 +20,8 @@ class AnimatedContainerHand extends StatelessWidget {
       return TweenAnimationBuilder<double>(
         key: const ValueKey('special_case_when_overflowing'),
         tween: Tween(begin: value(now - 1), end: value(now)),
-        duration: const Duration(microseconds: 300),
-        curve: Curves.easeInQuint,
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
         builder: (context, value, child) => ContainerHand(
           color: Colors.transparent,
           size: size,

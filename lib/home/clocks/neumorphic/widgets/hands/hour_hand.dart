@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/semantics.dart';
-import 'package:haru/home/clocks/neumorphic/hands/animated_container_hand.dart';
+import 'package:haru/home/clocks/neumorphic/neumorphic_clock.dart';
 
-class MinuteHand extends StatelessWidget {
+import 'container_hand.dart';
+
+class HourHand extends StatelessWidget {
   final double unit;
   final DateTime now;
-
-  const MinuteHand({
+  const HourHand({
     Key? key,
     required this.unit,
     required this.now,
@@ -16,19 +17,21 @@ class MinuteHand extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.all(2 * unit),
-      child: AnimatedContainerHand(
-        now: now.minute,
+      child: ContainerHand(
+        color: Colors.transparent,
         size: .5,
+        angleRadians:
+            now.hour * radiansPerHour + (now.minute / 60) * radiansPerHour,
         child: Transform.translate(
-          offset: Offset(0, -7 * unit),
+          offset: Offset(.0, -5 * unit),
           child: Semantics.fromProperties(
             properties: SemanticsProperties(
-              value: '${now.minute}',
-              label: 'Minute hand of the clock at position ${now.minute} min.',
+              value: '$now.hour',
+              label: 'Hour hand of the clock at position $now.hour hrs.',
             ),
             child: Container(
-              width: unit / 2,
-              height: unit * 13,
+              width: 1.2 * unit,
+              height: 9 * unit,
               decoration: BoxDecoration(
                 color: Colors.grey[800],
               ),
