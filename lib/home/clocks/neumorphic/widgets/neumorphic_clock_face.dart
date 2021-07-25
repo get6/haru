@@ -43,20 +43,21 @@ class _NeumorphicClockFaceState extends State<NeumorphicClockFace> {
   @override
   Widget build(BuildContext context) {
     return Semantics.fromProperties(
-        properties: SemanticsProperties(
-          label: 'Analog clock with time',
-          value: now.toString(),
-        ),
-        child: Stack(
-          children: [
-            HourHandShadow(unit: widget.unit, now: now),
-            MinuteHandShadow(unit: widget.unit, now: now),
-            SecondHandShadow(unit: widget.unit, now: now),
-            HourHand(unit: widget.unit, now: now),
-            MinuteHand(unit: widget.unit, now: now),
-            SecondHand(unit: widget.unit, now: now),
-            SecondHandCircle(unit: widget.unit, now: now),
-          ],
-        ));
+      properties: SemanticsProperties(
+        label: 'Analog clock with time',
+        value: now.toString(),
+      ),
+      child: Stack(
+        children: [
+          HourHandShadow(unit: widget.unit, now: now),
+          MinuteHandShadow(unit: widget.unit, now: now),
+          SecondHandShadow(unit: widget.unit, now: now),
+          HourHand(unit: widget.unit, now: now),
+          MinuteHand(unit: widget.unit, now: now),
+          SecondHand(unit: widget.unit, now: now),
+          SecondHandCircle(unit: widget.unit, now: now),
+        ],
+      ),
+    );
   }
 }

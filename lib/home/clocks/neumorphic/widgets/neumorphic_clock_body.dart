@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:haru/models/schedule/schedule.dart';
+import 'package:haru/models/schedule/schedule_notifier.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'clock_schedule.dart';
 import 'clock_ticks.dart';
@@ -12,7 +12,7 @@ class NeumorphicClockBody extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ScopedReader watch) {
-    final schedules = watch(scheduleRepositoryProvider).fetchTodaySchedules();
+    final schedules = watch(scheduleProvider).fetchTodaySchedules();
     return Stack(
       children: [
         OuterShadows(unit: unit),
