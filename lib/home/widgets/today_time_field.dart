@@ -32,6 +32,7 @@ class TodayTimeField extends StatelessWidget {
           showPicker(
             context: context,
             value: TimeOfDay.fromDateTime(time),
+            is24HrFormat: true,
             onChange: onTimeChanged,
           ),
         );

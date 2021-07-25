@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:haru/common/const_values.dart';
 import 'package:haru/home/widgets/today_time_field.dart';
 import 'package:haru/models/schedule/schedule.dart';
-import 'package:hive/hive.dart';
+import 'package:haru/models/schedule/schedule_notifier.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class TodayAddModal extends StatefulWidget {
   TodayAddModal({Key? key}) : super(key: key);
@@ -15,7 +16,6 @@ class TodayAddModal extends StatefulWidget {
 
 class _TodayAddModalState extends State<TodayAddModal> {
   final _formKey = GlobalKey<FormState>();
-  late Box<Schedule> storeData;
 
   late TextEditingController titleController;
   late TextEditingController startController;
@@ -27,15 +27,14 @@ class _TodayAddModalState extends State<TodayAddModal> {
   @override
   void initState() {
     super.initState();
-    storeData = Hive.box(scheduleBox);
 
     titleController = TextEditingController();
     startController = TextEditingController();
     endController = TextEditingController();
 
     final today = DateTime.now();
-    _startTime = getTime(today.hour, 30);
-    _endTime = getTime(today.hour, 30);
+    _startTime = getTime(today.hour, 0);
+    _endTime = getTime(23 <= today.hour ? today.hour : today.hour + 1, 0);
   }
 
   @override
@@ -126,14 +125,17 @@ class _TodayAddModalState extends State<TodayAddModal> {
                         child: const Text('Cancel'),
                       ),
                       const SizedBox(width: 20),
-                      ElevatedButton(
-                        onPressed: () => saveSchedule(),
-                        style: TextButton.styleFrom(
-                          primary: Colors.black87,
-                          elevation: 0,
-                        ),
-                        child: const Text('Submit'),
-                      ),
+                      Consumer(builder: (context, watch, _) {
+                        final scheduleNotifier = watch(scheduleProvider);
+                        return ElevatedButton(
+                          onPressed: () => saveSchedule(scheduleNotifier),
+                          style: TextButton.styleFrom(
+                            primary: Colors.black87,
+                            elevation: 0,
+                          ),
+                          child: const Text('Submit'),
+                        );
+                      }),
                     ],
                   ),
                 ],
@@ -145,13 +147,14 @@ class _TodayAddModalState extends State<TodayAddModal> {
     );
   }
 
-  void saveSchedule() async {
+  void saveSchedule(ScheduleNotifier scheduleNotifier) {
     if (_formKey.currentState!.validate()) {
       final startText = startController.text;
       final endText = endController.text;
       final _random = Random();
       final color = Colors.primaries[_random.nextInt(Colors.primaries.length)];
-      await storeData.add(Schedule(
+
+      scheduleNotifier.addSchedule(Schedule(
         title: titleController.text,
         color: color.value,
         startTime: getTime(int.parse(startText.split(":")[0]),
