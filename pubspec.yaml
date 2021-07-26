@@ -27,7 +27,7 @@ dependencies:
   datetime_picker_formfield: ^2.0.0
   day_night_time_picker: ^1.0.2
   flutter_hooks: ^0.17.0
-  flutter_local_notifications: ^6.0.0
+  flutter_local_notifications: ^6.1.0
   flutter_staggered_grid_view: ^0.4.0
   hive: ^2.0.4
   hive_flutter: ^1.1.0
@@ -45,14 +45,19 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   build_runner: ^2.0.6
-  flutter_launcher_icons: ^0.9.0
+  flutter_launcher_icons: ^0.9.1
+  flutter_launcher_name:
+     git:
+      url: https://github.com/ride4sun/flutter_launcher_name
+      ref: "0.9.1"
   flutter_native_splash: ^1.2.0
   hive_generator: ^1.1.0
-  json_serializable: ^4.1.3
+  json_serializable: ^4.1.4
   lint: ^1.5.3
 
 dependency_overrides:
   args: "2.1.1"
+  # yarm: '2.1.16'
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -159,3 +164,6 @@ flutter_native_splash:
   #  - 'ios/Runner/Info-Release.plist'
   # To enable support for Android 12, set the following parameter to true.  Defaults to false.
   #android12: true
+
+flutter_launcher_name:
+  name: "하루, Haru"

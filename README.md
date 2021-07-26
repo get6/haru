@@ -24,9 +24,13 @@ flutter pub run flutter_native_splash:create
 
 flutter pub run flutter_launcher_icons:main
 
+### flutter_launcher_name
+flutter pub run flutter_launcher_name:main
+
 ### json_serializable
 
 flutter packages pub run build_runner build
 
 ### hive_generator
 flutter packages pub run build_runner build --delete-conflicting-outputs
+
