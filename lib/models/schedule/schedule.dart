@@ -1,6 +1,4 @@
-import 'package:haru/common/const_values.dart';
 import 'package:hive/hive.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 part 'schedule.g.dart';
 

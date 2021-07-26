@@ -65,8 +65,8 @@ class TodayListView extends ConsumerWidget {
       ),
       TextButton(
         onPressed: () {
-          scheduleNotifier.deleteSchedule(
-              calendarLongPressDetails.appointments![0] as Schedule);
+          scheduleNotifier
+              .delete(calendarLongPressDetails.appointments![0] as Schedule);
           Navigator.pop(context, 'OK');
         },
         child: Text('OK', style: TextStyle(color: button_color)),

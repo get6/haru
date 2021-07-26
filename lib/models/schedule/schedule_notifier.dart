@@ -31,12 +31,12 @@ class ScheduleNotifier extends ChangeNotifier {
         .toList();
   }
 
-  void addSchedule(Schedule schedule) async {
+  void add(Schedule schedule) async {
     await storeData.add(schedule);
     notifyListeners();
   }
 
-  void deleteSchedule(Schedule schedule) async {
+  void delete(Schedule schedule) async {
     final key =
         storeData.keys.lastWhere((key) => storeData.get(key) == schedule);
     await storeData.delete(key);

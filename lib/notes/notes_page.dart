@@ -7,34 +7,37 @@ import 'package:haru/common/color/custom_color.dart';
 import 'package:haru/common/const_values.dart';
 import 'package:haru/common/empty_page.dart';
 import 'package:haru/models/note/note.dart';
+import 'package:haru/models/note/note_notifier.dart';
+import 'package:haru/notes/notes_edit_page.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../common/const_values.dart';
 
-import 'notes_edit_modal.dart';
-
 // TODO contents 스크롤 가능하게?, 색과 노트 길이 수정
-class NotesPage extends StatelessWidget {
+class NotesPage extends ConsumerWidget {
   static const routeName = '/notes';
-  Box<Note> storeData = Hive.box<Note>(noteBox);
-  NotesPage({Key? key}) : super(key: key);
+  const NotesPage({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ScopedReader watch) {
     precacheImage(const AssetImage(noteEditModalBackgrounImage), context);
+    final noteNotifier = watch(noteProvider.notifier);
+    final storeData = noteNotifier.storeData;
+
     return Scaffold(
-      resizeToAvoidBottomInset: true,
-      backgroundColor: Colors.white,
+      resizeToAvoidBottomInset: false,
+      backgroundColor: empty_color,
       appBar: AppBar(
-        backgroundColor: storeData.isEmpty ? empty_color : Colors.white,
+        backgroundColor: empty_color,
+        elevation: 0,
         actions: [
           IconButton(
-            onPressed: () => openDialog(context),
+            onPressed: () => openDialog(context, noteNotifier),
             icon: const Icon(Icons.add),
             splashRadius: Material.defaultSplashRadius / 2,
-          )
+          ),
         ],
-        elevation: 0,
       ),
       body: ValueListenableBuilder(
         valueListenable: storeData.listenable(),
@@ -60,79 +63,76 @@ class NotesPage extends StatelessWidget {
                       itemBuilder: (_, index) {
                         final key = keys[index];
                         final Note? note = notes.get(key);
-                        return GestureDetector(
-                          onTap: () {},
-                          onLongPress: () {},
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: Theme.of(context).primaryColor,
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(10.0)),
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      top: 16.0, left: 16.0, right: 16.0),
-                                  child: Container(
-                                    width: double.infinity,
-                                    padding: const EdgeInsets.all(8),
-                                    decoration: const BoxDecoration(
-                                      color: Color(0xFFA5FBFF),
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(10.0),
-                                      ),
-                                    ),
-                                    child: Text(
-                                      note!.title,
-                                      style: const TextStyle(
-                                          fontWeight: FontWeight.bold),
-                                      softWrap: true,
-                                      textAlign: TextAlign.center,
+                        return Container(
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).primaryColor,
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(10.0)),
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    top: 16.0, left: 16.0, right: 16.0),
+                                child: Container(
+                                  width: double.infinity,
+                                  padding: const EdgeInsets.all(8),
+                                  decoration: const BoxDecoration(
+                                    color: Color(0xFFA5FBFF),
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(10.0),
                                     ),
                                   ),
-                                ),
-                                const SizedBox(height: 10),
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 16.0),
                                   child: Text(
-                                    note.contents,
+                                    note!.title,
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.bold),
                                     softWrap: true,
+                                    textAlign: TextAlign.center,
                                   ),
                                 ),
-                                Stack(
-                                  children: [
-                                    Align(
-                                      alignment: Alignment.bottomRight,
-                                      child: IconButton(
-                                        onPressed: () =>
-                                            openDialog(context, noteKey: key),
-                                        icon: const Icon(
-                                          Icons.edit,
-                                          size: 18,
-                                          color: Colors.black54,
-                                        ),
+                              ),
+                              const SizedBox(height: 10),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 16.0),
+                                child: Text(note.contents, softWrap: true),
+                              ),
+                              Stack(
+                                children: [
+                                  Align(
+                                    alignment: Alignment.bottomRight,
+                                    child: IconButton(
+                                      onPressed: () => openDialog(
+                                        context,
+                                        noteNotifier,
+                                        noteKey: key,
+                                      ),
+                                      icon: const Icon(
+                                        Icons.edit,
+                                        size: 18,
+                                        color: Colors.black54,
                                       ),
                                     ),
-                                    Align(
-                                      alignment: Alignment.bottomLeft,
-                                      child: IconButton(
-                                        onPressed: () {
-                                          deleteDialog(context, key);
-                                        },
-                                        icon: const Icon(
-                                          Icons.delete,
-                                          size: 18,
-                                          color: Colors.black54,
-                                        ),
+                                  ),
+                                  Align(
+                                    alignment: Alignment.bottomLeft,
+                                    child: IconButton(
+                                      onPressed: () {
+                                        deleteDialog(
+                                            context, key, noteNotifier);
+                                      },
+                                      icon: const Icon(
+                                        Icons.delete,
+                                        size: 18,
+                                        color: Colors.black54,
                                       ),
-                                    )
-                                  ],
-                                ),
-                              ],
-                            ),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ],
                           ),
                         );
                       },
@@ -155,7 +155,8 @@ class NotesPage extends StatelessWidget {
     );
   }
 
-  void openDialog(BuildContext context, {int? noteKey}) {
+  void openDialog(BuildContext context, NoteNotifier noteNotifier,
+      {int? noteKey}) {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -165,13 +166,13 @@ class NotesPage extends StatelessWidget {
       builder: (context) => SizedBox(
         height: MediaQuery.of(context).size.height * 0.8,
         child: noteKey == null
-            ? NotesEditModal()
-            : NotesEditModal(noteKey: noteKey),
+            ? const NotesEditPage()
+            : NotesEditPage(noteKey: noteKey),
       ),
     );
   }
 
-  void deleteDialog(BuildContext context, int key) {
+  void deleteDialog(BuildContext context, int key, NoteNotifier noteNotifier) {
     const title = Text('Warning');
     const content = Text('Are you sure you want to delete this note?');
     final actions = [
@@ -184,7 +185,7 @@ class NotesPage extends StatelessWidget {
       ),
       TextButton(
         onPressed: () {
-          storeData.delete(key);
+          noteNotifier.delete(key);
           Navigator.pop(context, 'OK');
         },
         child: Text('OK', style: TextStyle(color: button_color)),

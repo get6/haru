@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:haru/common/const_values.dart';
 import 'package:haru/histories/histories_page.dart';
 import 'package:haru/models/schedule/schedule.dart';
-import 'package:haru/notes/notes_edit_modal.dart';
+import 'package:haru/notes/notes_edit_page.dart';
 import 'package:haru/notes/notes_page.dart';
 import 'package:haru/routes/routes.dart';
 import 'package:haru/settings/settings_page.dart';
@@ -30,17 +30,15 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Haru',
-      theme: ThemeData(
-        primarySwatch: createPrimaryColor(main_color),
-      ),
+      theme: ThemeData(primarySwatch: createPrimaryColor(main_color)),
       initialRoute: MyHomePage.routeName,
       routes: {
         Routes.home: (context) => const MyHomePage(),
         Routes.histories: (context) => const HistoriesPage(),
         Routes.timer: (context) => const TimerPage(),
         Routes.settings: (context) => const SettingsPage(),
-        Routes.notes: (context) => NotesPage(),
-        Routes.notesEdit: (context) => NotesEditModal(),
+        Routes.notes: (context) => const NotesPage(),
+        Routes.notesEdit: (context) => const NotesEditPage(),
         Routes.about: (context) => const AboutPage(),
       },
     );

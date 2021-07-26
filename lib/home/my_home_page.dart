@@ -28,20 +28,8 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     precacheImage(const AssetImage(todayAddModalBackgrounImage), context);
-    final List<Schedule> schedules = storeData.keys
-        .cast<int>()
-        .where((key) {
-          final schedule = storeData.get(key);
-          final today = DateTime.now();
-          final startTime =
-              DateTime(today.year, today.month, today.day - 1, 23, 59);
-          final endTime = DateTime(today.year, today.month, today.day + 1);
-          return schedule!.startTime.isAfter(startTime) &&
-              schedule.endTime.isBefore(endTime);
-        })
-        .map((key) => storeData.get(key)!)
-        .toList();
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,

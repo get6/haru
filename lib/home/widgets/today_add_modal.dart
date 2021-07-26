@@ -154,7 +154,7 @@ class _TodayAddModalState extends State<TodayAddModal> {
       final _random = Random();
       final color = Colors.primaries[_random.nextInt(Colors.primaries.length)];
 
-      scheduleNotifier.addSchedule(Schedule(
+      scheduleNotifier.add(Schedule(
         title: titleController.text,
         color: color.value,
         startTime: getTime(int.parse(startText.split(":")[0]),
