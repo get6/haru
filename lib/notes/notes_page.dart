@@ -140,6 +140,7 @@ class NotesPage extends StatelessWidget {
                         final key = keys[index];
                         final Note? note = notes.get(key);
                         final int bodyLength = note!.contents.length;
+                        // TODO 노트 보여주는 길이 조절하기
                         final double mainAxisCellCount = (bodyLength < 10
                                 ? 1
                                 : int.parse(bodyLength.toString()[0])) +

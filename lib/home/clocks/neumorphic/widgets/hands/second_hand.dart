@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/semantics.dart';
 import 'animated_container_hand.dart';
 
 class SecondHand extends StatelessWidget {
@@ -18,17 +17,11 @@ class SecondHand extends StatelessWidget {
       size: .5,
       child: Transform.translate(
         offset: Offset(.0, -4 * unit),
-        child: Semantics.fromProperties(
-          properties: SemanticsProperties(
-            value: '${now.second}',
-            label: 'Seconds hand of the clock at position ${now.second} sec.',
-          ),
-          child: Container(
-            width: unit / 2,
-            height: double.infinity,
-            decoration: BoxDecoration(
-              color: Colors.red[800],
-            ),
+        child: Container(
+          width: unit / 2,
+          height: double.infinity,
+          decoration: BoxDecoration(
+            color: Colors.red[800],
           ),
         ),
       ),

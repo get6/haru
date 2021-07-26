@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/semantics.dart';
 import 'package:haru/home/clocks/neumorphic/neumorphic_clock.dart';
-
 import 'container_hand.dart';
 
 class HourHand extends StatelessWidget {
@@ -24,17 +22,11 @@ class HourHand extends StatelessWidget {
             now.hour * radiansPerHour + (now.minute / 60) * radiansPerHour,
         child: Transform.translate(
           offset: Offset(.0, -5 * unit),
-          child: Semantics.fromProperties(
-            properties: SemanticsProperties(
-              value: '$now.hour',
-              label: 'Hour hand of the clock at position $now.hour hrs.',
-            ),
-            child: Container(
-              width: 1.2 * unit,
-              height: 9 * unit,
-              decoration: BoxDecoration(
-                color: Colors.grey[800],
-              ),
+          child: Container(
+            width: 1.2 * unit,
+            height: 9 * unit,
+            decoration: BoxDecoration(
+              color: Colors.grey[800],
             ),
           ),
         ),
