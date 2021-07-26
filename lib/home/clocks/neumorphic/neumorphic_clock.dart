@@ -10,6 +10,8 @@ final radiansPerTick = radians(360 / 60);
 /// Total distance traveled by an hour hand, each hour, in radians.
 final radiansPerHour = radians(360 / 12);
 
+const hourWidth = 0.16;
+
 class NeumorphicClock extends StatelessWidget {
   const NeumorphicClock({Key? key}) : super(key: key);
 

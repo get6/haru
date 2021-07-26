@@ -29,6 +29,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Haru',
       theme: ThemeData(primarySwatch: createPrimaryColor(main_color)),
       initialRoute: MyHomePage.routeName,

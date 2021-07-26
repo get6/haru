@@ -12,7 +12,7 @@ class NeumorphicClockBody extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ScopedReader watch) {
-    final schedules = watch(scheduleProvider).fetchTodaySchedules();
+    final schedules = watch(scheduleProvider).fetchHalfDaySchedules();
     return Stack(
       children: [
         OuterShadows(unit: unit),

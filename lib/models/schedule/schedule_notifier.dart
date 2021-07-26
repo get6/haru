@@ -31,6 +31,36 @@ class ScheduleNotifier extends ChangeNotifier {
         .toList();
   }
 
+  List<Schedule> fetchHalfDaySchedules() {
+    return storeData.keys
+        .cast<int>()
+        .where((key) {
+          final schedule = storeData.get(key);
+          final today = DateTime.now();
+          // 어제 23시 59분
+          final startTime =
+              DateTime(today.year, today.month, today.day - 1, 23, 59);
+          // 내일 00시 00분
+          final endTime = DateTime(today.year, today.month, today.day + 1);
+
+          // 어제와 내일 시간에 하나라도 틀린 경우 보여주지 않음
+          if (!schedule!.startTime.isAfter(startTime) ||
+              !schedule.endTime.isBefore(endTime)) {
+            return false;
+          }
+
+          if (today.hour >= 12) {
+            // PM
+            return 12 <= schedule.endTime.hour;
+          } else {
+            // AM
+            return 12 > schedule.endTime.hour;
+          }
+        })
+        .map((key) => storeData.get(key)!)
+        .toList();
+  }
+
   void add(Schedule schedule) async {
     await storeData.add(schedule);
     notifyListeners();

@@ -21,10 +21,10 @@ class HourHand extends StatelessWidget {
         angleRadians:
             now.hour * radiansPerHour + (now.minute / 60) * radiansPerHour,
         child: Transform.translate(
-          offset: Offset(.0, -5 * unit),
+          offset: Offset(.0, -6 * unit),
           child: Container(
             width: 1.2 * unit,
-            height: 9 * unit,
+            height: 12 * unit,
             decoration: BoxDecoration(
               color: Colors.grey[800],
             ),
