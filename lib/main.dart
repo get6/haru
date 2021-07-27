@@ -11,6 +11,7 @@ import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'about/about_us_page.dart';
+import 'about/widgets/page_file_builder.dart';
 import 'common/color/custom_color.dart';
 import 'home/my_home_page.dart';
 import 'models/note/note.dart';
@@ -40,7 +41,9 @@ class MyApp extends StatelessWidget {
         Routes.settings: (context) => const SettingsPage(),
         Routes.notes: (context) => const NotesPage(),
         Routes.notesEdit: (context) => const NotesEditPage(),
-        Routes.about: (context) => const AboutPage(),
+        Routes.about: (context) => AboutPage(
+              pageFlipKey: GlobalKey<PageFlipBuilderState>(),
+            ),
       },
     );
   }
