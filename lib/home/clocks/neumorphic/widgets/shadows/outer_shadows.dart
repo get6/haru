@@ -16,12 +16,12 @@ class OuterShadows extends StatelessWidget {
           BoxShadow(
             color: Colors.white,
             offset: Offset(-unit / 2, -unit / 2),
-            blurRadius: 1.5 * unit,
+            blurRadius: .5 * unit,
           ),
           BoxShadow(
             color: neumorphicTheme[neumorphicColor.divider]!,
             offset: Offset(unit / 2, unit / 2),
-            blurRadius: 1.5 * unit,
+            blurRadius: .5 * unit,
           ),
         ],
       ),

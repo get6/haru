@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:haru/common/color/custom_color.dart';
 import 'package:vector_math/vector_math_64.dart' show radians;
 
 import '../neumorphic_clock.dart';
