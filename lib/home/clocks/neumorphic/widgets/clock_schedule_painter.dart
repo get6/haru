@@ -17,7 +17,7 @@ class ClockSchedulePainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
       ..color = Color(schedule.color)
-      ..style = PaintingStyle.stroke
+      ..style = PaintingStyle.fill
       ..strokeWidth = hourWidth * unit;
 
     final double sHourAngle = fixedHourAngle(schedule.startTime);

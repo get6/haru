@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vector_math/vector_math_64.dart' show radians;
+import 'widgets/clock_pin.dart';
 import 'widgets/neumorphic_clock_body.dart';
 import 'widgets/neumorphic_clock_face.dart';
 
@@ -28,6 +29,7 @@ class NeumorphicClock extends StatelessWidget {
               children: [
                 NeumorphicClockBody(unit: unit), // 상태가 변하지 않는 곳
                 NeumorphicClockFace(unit: unit), // 1초마다 바뀌는 곳
+                ClockPin(unit: unit),
               ],
             ),
           );

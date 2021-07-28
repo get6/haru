@@ -15,14 +15,14 @@ class SecondHandCircle extends StatelessWidget {
   Widget build(BuildContext context) {
     return AnimatedContainerHand(
       now: now.second,
-      size: .6,
+      size: .5,
       child: Transform.translate(
-        offset: Offset.zero,
+        offset: Offset(.0, 5 * unit),
         child: Container(
           width: 1.7 * unit,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            color: Colors.red[800],
+            color: Colors.red[400],
           ),
         ),
       ),

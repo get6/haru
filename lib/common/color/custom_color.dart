@@ -37,3 +37,32 @@ MaterialColor createPrimaryColor(Color? color) {
 MaterialColor createAccentColor(Color? color) {
   return createMaterialColor(color ?? accent_color);
 }
+
+enum neumorphicColor {
+  primary,
+  highlight,
+  accent,
+  cursor,
+  canvas,
+  divider,
+  error,
+  background
+}
+
+final Map<neumorphicColor, Color> neumorphicTheme = {
+  // Hour hand.
+  neumorphicColor.primary: Colors.grey[800]!,
+  // Minute hand.
+  neumorphicColor.highlight: Colors.grey[800]!,
+  // Second hand.
+  neumorphicColor.accent: Colors.red[800]!,
+  // Tick color
+  neumorphicColor.cursor: Colors.grey[900]!,
+  // Shadow color
+  neumorphicColor.canvas: Colors.grey[500]!,
+  // Inner shadow color
+  neumorphicColor.divider: Colors.grey[400]!,
+  // Icon color:
+  neumorphicColor.error: Colors.grey[800]!.withOpacity(0.1),
+  neumorphicColor.background: Colors.grey[300]!,
+};
