@@ -24,11 +24,12 @@ class AboutPage extends StatelessWidget {
       ),
       backBuilder: (context) => AboutDetail(
         bgImage: 'assets/images/multnomah_falls.png',
-        myImage: 'assets/images/us/hsj.JPG',
+        myImage: 'assets/images/us/bje.JPG',
         myName: '변지은',
-        myFuture: 'Future Full-Stack Developer',
+        myFuture: 'Future Application Developer',
         myEmail: 'bje0507@knou.ac.kr',
-        myWords: '고급 개발자 변지은입니다.',
+        myWords:
+            '경진대회에 참여하도록 도와주신 성준님께 감사드립니다. \n\n하루 프로젝트를 하면서 좀 더 성장한 느낌이 들었습니다. \n\n 수고 많으셨습니다!',
         onFlip: () => pageFlipKey.currentState!.flip(),
       ),
     );
