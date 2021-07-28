@@ -21,7 +21,7 @@ class ClockTicks extends StatelessWidget {
               child: Transform.translate(
                 offset: Offset(0, i % 5 == 0 ? -10.5 * unit : -10.7 * unit),
                 child: Container(
-                  color: i % 5 == 0 ? Colors.black45 : Colors.grey[400],
+                  color: i % 5 == 0 ? Colors.black54 : Colors.grey[400],
                   height: i % 5 == 0 ? 1.6 * unit : 1.2 * unit,
                   width: i % 5 == 0 ? hourWidth * unit : 0.12 * unit,
                 ),
@@ -37,7 +37,7 @@ class ClockTicks extends StatelessWidget {
                 child: Text(
                   '${today.hour >= 12 ? i + 12 : i}',
                   style: const TextStyle(
-                    color: Colors.black45,
+                    color: Colors.black54,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
