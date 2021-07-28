@@ -11,7 +11,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 
 class TodayListView extends ConsumerWidget {
-  TodayListView({Key? key}) : super(key: key);
+  const TodayListView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, ScopedReader watch) {
@@ -19,6 +19,7 @@ class TodayListView extends ConsumerWidget {
     final schedules = scheduleNotifier.fetchTodaySchedules();
     return SfCalendar(
       dataSource: ScheduleDataSource(schedules),
+      backgroundColor: neumorphicTheme[neumorphicColor.background],
       viewHeaderHeight: 0,
       headerStyle: const CalendarHeaderStyle(textAlign: TextAlign.center),
       headerDateFormat: 'yMMMMEEEEd',

@@ -8,7 +8,7 @@ import 'package:haru/models/schedule/schedule_notifier.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class TodayAddModal extends StatefulWidget {
-  TodayAddModal({Key? key}) : super(key: key);
+  const TodayAddModal({Key? key}) : super(key: key);
 
   @override
   _TodayAddModalState createState() => _TodayAddModalState();

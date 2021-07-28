@@ -39,17 +39,17 @@ class NotesPage extends ConsumerWidget {
           ),
         ],
       ),
-      body: storeData.isEmpty
-          ? const EmptyPage(
-              title: 'No notes here! 😥',
-              subtitle: 'Try to click the add button on top! 😆',
-            )
-          : ValueListenableBuilder(
-              valueListenable: storeData.listenable(),
-              builder: (context, Box<Note> notes, child) {
-                final List<int> keys =
-                    notes.keys.cast<int>().toList().reversed.toList();
-                return SingleChildScrollView(
+      body: ValueListenableBuilder(
+        valueListenable: storeData.listenable(),
+        builder: (context, Box<Note> notes, child) {
+          final List<int> keys =
+              notes.keys.cast<int>().toList().reversed.toList();
+          return storeData.isEmpty
+              ? const EmptyPage(
+                  title: 'No notes here! 😥',
+                  subtitle: 'Try to click the add button on top! 😆',
+                )
+              : SingleChildScrollView(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10),
                     child: StaggeredGridView.countBuilder(
@@ -142,8 +142,8 @@ class NotesPage extends ConsumerWidget {
                     ),
                   ),
                 );
-              },
-            ),
+        },
+      ),
     );
   }
 

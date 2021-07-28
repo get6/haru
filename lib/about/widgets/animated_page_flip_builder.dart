@@ -43,11 +43,6 @@ class AnimatedPageFlipBuilder extends AnimatedWidget {
     }
   }
 
-  double _scale() {
-    final absValue = animation.value.abs();
-    return 1.0 - (absValue < 0.5 ? absValue : 1.0 - absValue) * maxScale;
-  }
-
   @override
   Widget build(BuildContext context) {
     final child = _isAnimationFirstHalf ^ showFrontSide
@@ -56,9 +51,7 @@ class AnimatedPageFlipBuilder extends AnimatedWidget {
     final matrix = flipAxis == Axis.horizontal
         ? (Matrix4.rotationY(_rotationAngle())..setEntry(3, 0, _getTilt()))
         : (Matrix4.rotationX(_rotationAngle())..setEntry(3, 1, _getTilt()));
-    final scale = _scale();
     return Transform(
-      // transform: Matrix4.diagonal3Values(scale, scale, 1.0),
       transform: matrix,
       alignment: Alignment.center,
       child: child,
