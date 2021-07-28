@@ -137,13 +137,14 @@ class PageFlipBuilderState extends State<PageFlipBuilder>
               ? (details) => _handleDragEnd(details, crossAxisLength)
               : null,
           child: AnimatedPageFlipBuilder(
-              animation: _controller,
-              frontBuilder: widget.frontBuilder,
-              backBuilder: widget.backBuilder,
-              showFrontSide: _showFrontSide,
-              flipAxis: widget.flipAxis,
-              maxTilt: widget.maxTilt,
-              maxScale: widget.maxScale),
+            animation: _controller,
+            frontBuilder: widget.frontBuilder,
+            backBuilder: widget.backBuilder,
+            showFrontSide: _showFrontSide,
+            flipAxis: widget.flipAxis,
+            maxTilt: widget.maxTilt,
+            maxScale: widget.maxScale,
+          ),
         );
       },
     );

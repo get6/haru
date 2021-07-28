@@ -58,7 +58,8 @@ class AnimatedPageFlipBuilder extends AnimatedWidget {
         : (Matrix4.rotationX(_rotationAngle())..setEntry(3, 1, _getTilt()));
     final scale = _scale();
     return Transform(
-      transform: Matrix4.diagonal3Values(scale, scale, 1.0),
+      // transform: Matrix4.diagonal3Values(scale, scale, 1.0),
+      transform: matrix,
       alignment: Alignment.center,
       child: child,
     );
