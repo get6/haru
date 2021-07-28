@@ -55,6 +55,7 @@ class _NotesEditFormState extends State<NotesEditForm> {
           const SizedBox(height: 20),
           TextFormField(
             controller: titleController,
+            maxLength: 20,
             decoration: const InputDecoration(
               labelText: 'Title',
               border: OutlineInputBorder(),
@@ -120,8 +121,9 @@ class _NotesEditFormState extends State<NotesEditForm> {
 
       if (widget.noteKey != null) {
         // Update
-        final note = widget.noteNotifier.storeData.get(widget.noteKey)!;
-        noteNotifier.update(widget.noteKey!, note);
+        final note = noteNotifier.storeData.get(widget.noteKey)!;
+        noteNotifier.update(widget.noteKey!,
+            Note(title: title, contents: body, createdAt: note.createdAt));
       } else {
         // Save
         final note =

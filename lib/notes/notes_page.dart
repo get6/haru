@@ -39,24 +39,24 @@ class NotesPage extends ConsumerWidget {
           ),
         ],
       ),
-      body: ValueListenableBuilder(
-        valueListenable: storeData.listenable(),
-        builder: (context, Box<Note> notes, child) {
-          final List<int> keys =
-              notes.keys.cast<int>().toList().reversed.toList();
-          return storeData.isEmpty
-              ? const EmptyPage(
-                  title: 'No notes here! 😥',
-                  subtitle: 'Try to click the add button on top! 😆',
-                )
-              : SingleChildScrollView(
+      body: storeData.isEmpty
+          ? const EmptyPage(
+              title: 'No notes here! 😥',
+              subtitle: 'Try to click the add button on top! 😆',
+            )
+          : ValueListenableBuilder(
+              valueListenable: storeData.listenable(),
+              builder: (context, Box<Note> notes, child) {
+                final List<int> keys =
+                    notes.keys.cast<int>().toList().reversed.toList();
+                return SingleChildScrollView(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10),
                     child: StaggeredGridView.countBuilder(
                       physics: const NeverScrollableScrollPhysics(),
                       primary: false,
                       shrinkWrap: true,
-                      crossAxisCount: 4,
+                      crossAxisCount: 2,
                       mainAxisSpacing: 8.0,
                       crossAxisSpacing: 8.0,
                       itemCount: keys.length,
@@ -74,7 +74,7 @@ class NotesPage extends ConsumerWidget {
                             children: [
                               Padding(
                                 padding: const EdgeInsets.only(
-                                    top: 16.0, left: 16.0, right: 16.0),
+                                    top: 12.0, left: 8.0, right: 8.0),
                                 child: Container(
                                   width: double.infinity,
                                   padding: const EdgeInsets.all(8),
@@ -137,21 +137,13 @@ class NotesPage extends ConsumerWidget {
                         );
                       },
                       staggeredTileBuilder: (index) {
-                        final key = keys[index];
-                        final Note? note = notes.get(key);
-                        final int bodyLength = note!.contents.length;
-                        // TODO 노트 보여주는 길이 조절하기
-                        final double mainAxisCellCount = (bodyLength < 10
-                                ? 1
-                                : int.parse(bodyLength.toString()[0])) +
-                            .5;
-                        return StaggeredTile.count(2, mainAxisCellCount);
+                        return const StaggeredTile.fit(1);
                       },
                     ),
                   ),
                 );
-        },
-      ),
+              },
+            ),
     );
   }
 

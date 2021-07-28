@@ -19,8 +19,15 @@ class NoteNotifier extends ChangeNotifier {
     notifyListeners();
   }
 
-  void update(int key, Note note) async {
-    await storeData.putAt(key, note);
+  void update(int noteKey, Note note) async {
+    int i = 0;
+    for (final key in storeData.keys.cast<int>()) {
+      if (key == noteKey) {
+        break;
+      }
+      i++;
+    }
+    await storeData.putAt(i, note);
     notifyListeners();
   }
 }
