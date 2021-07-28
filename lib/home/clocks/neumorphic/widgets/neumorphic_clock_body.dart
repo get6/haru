@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:haru/home/clocks/neumorphic/widgets/shadows/inner_shadows.dart';
+
 import 'package:haru/models/schedule/schedule_notifier.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'clock_schedule_painter.dart';
 import 'clock_ticks.dart';
-import 'shadows/inner_shadows.dart';
 import 'shadows/outer_shadows.dart';
 
 class NeumorphicClockBody extends ConsumerWidget {
@@ -16,6 +17,7 @@ class NeumorphicClockBody extends ConsumerWidget {
     return Stack(
       children: [
         OuterShadows(unit: unit),
+        InnerShadows(unit: unit),
         for (final schedule in schedules)
           CustomPaint(
             painter: ClockSchedulePainter(unit: unit, schedule: schedule),
@@ -23,7 +25,6 @@ class NeumorphicClockBody extends ConsumerWidget {
               decoration: const BoxDecoration(shape: BoxShape.circle),
             ),
           ),
-        InnerShadows(unit: unit),
         ClockTicks(unit: unit),
       ],
     );

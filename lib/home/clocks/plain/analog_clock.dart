@@ -11,7 +11,7 @@ class AnalogClock extends StatefulWidget {
   final double height;
   final BoxDecoration decoration;
 
-  AnalogClock({
+  const AnalogClock({
     Key? key,
     this.dateTime,
     this.borderWidth,

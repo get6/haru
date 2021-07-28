@@ -14,14 +14,14 @@ class SecondHand extends StatelessWidget {
   Widget build(BuildContext context) {
     return AnimatedContainerHand(
       now: now.second,
-      size: .5,
+      size: .53,
       child: Transform.translate(
-        offset: Offset(.0, -4 * unit),
+        offset: Offset(.0, -5 * unit),
         child: Container(
           width: unit / 2,
           height: double.infinity,
           decoration: BoxDecoration(
-            color: Colors.red[800],
+            color: Colors.red[400],
           ),
         ),
       ),

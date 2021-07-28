@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:haru/common/color/custom_color.dart';
 import 'package:haru/common/const_values.dart';
 import 'package:haru/common/widgets/my_drawer.dart';
 import 'package:haru/home/clocks/neumorphic/neumorphic_clock.dart';
@@ -30,9 +31,9 @@ class _MyHomePageState extends State<MyHomePage> {
     precacheImage(const AssetImage(todayAddModalBackgrounImage), context);
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: Colors.white,
+      backgroundColor: neumorphicTheme[neumorphicColor.background],
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: neumorphicTheme[neumorphicColor.background],
         actions: [
           IconButton(
             onPressed: () => showModalBottomSheet(
@@ -43,7 +44,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               builder: (context) => SizedBox(
                 height: MediaQuery.of(context).size.height * 0.8,
-                child: TodayAddModal(),
+                child: const TodayAddModal(),
               ),
             ),
             icon: const Icon(Icons.add),
@@ -55,8 +56,8 @@ class _MyHomePageState extends State<MyHomePage> {
       drawer: const MyDrawer(),
       body: SafeArea(
         child: Column(
-          children: [
-            const NeumorphicClock(),
+          children: const [
+            NeumorphicClock(),
             Expanded(child: TodayListView()),
           ],
         ),

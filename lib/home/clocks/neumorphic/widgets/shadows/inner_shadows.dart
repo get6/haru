@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:haru/common/color/custom_color.dart';
 
 class InnerShadows extends StatelessWidget {
   final double unit;
@@ -13,11 +14,11 @@ class InnerShadows extends StatelessWidget {
           Container(
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: Colors.grey[300],
+              color: neumorphicTheme[neumorphicColor.background],
               gradient: RadialGradient(
                 colors: [
                   Colors.white.withOpacity(0.0),
-                  Colors.grey[400]!,
+                  Colors.grey[350]!,
                 ],
                 center: const AlignmentDirectional(.1, .1),
                 focal: const AlignmentDirectional(.0, .0),
@@ -30,7 +31,7 @@ class InnerShadows extends StatelessWidget {
           Container(
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: Colors.grey[300],
+              color: neumorphicTheme[neumorphicColor.background],
               gradient: RadialGradient(
                 colors: [
                   Colors.white.withOpacity(0.0),

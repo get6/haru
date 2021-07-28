@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:haru/common/color/custom_color.dart';
 import 'package:haru/home/clocks/neumorphic/widgets/hands/animated_container_hand.dart';
 
 class MinuteHandShadow extends StatelessWidget {
@@ -25,7 +26,10 @@ class MinuteHandShadow extends StatelessWidget {
               width: unit / 2,
               height: unit * 15,
               decoration: BoxDecoration(color: Colors.transparent, boxShadow: [
-                BoxShadow(color: Colors.grey[500]!, blurRadius: unit)
+                BoxShadow(
+                  color: neumorphicTheme[neumorphicColor.canvas]!,
+                  blurRadius: unit,
+                )
               ]),
             ),
           ),
