@@ -17,6 +17,7 @@ class TodayListView extends ConsumerWidget {
   Widget build(BuildContext context, ScopedReader watch) {
     final scheduleNotifier = watch(scheduleProvider);
     final schedules = scheduleNotifier.fetchTodaySchedules();
+    // setInitialData(scheduleNotifier.storeData);
     return SfCalendar(
       dataSource: ScheduleDataSource(schedules),
       backgroundColor: neumorphicTheme[neumorphicColor.background],

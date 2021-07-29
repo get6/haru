@@ -9,7 +9,6 @@ class ClockTicks extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO 숫자 아래로 향하는 걸 위로 향하게
     final today = DateTime.now();
     return Stack(
       children: [
@@ -28,6 +27,7 @@ class ClockTicks extends StatelessWidget {
               ),
             ),
           ),
+        // TODO 12시, 24시가 되는 시점에 바뀌어야 함.
         for (int i = 0; i < 12; i++)
           Center(
             child: Transform.rotate(

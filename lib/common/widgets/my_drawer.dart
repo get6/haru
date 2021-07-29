@@ -50,7 +50,7 @@ class MyDrawer extends StatelessWidget {
           ),
           ListTile(
             leading: const Icon(Icons.sticky_note_2_outlined),
-            title: const Text('Note'),
+            title: const Text('Notes'),
             onTap: () => Navigator.popAndPushNamed(context, Routes.notes),
           ),
           ListTile(

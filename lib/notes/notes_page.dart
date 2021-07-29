@@ -14,7 +14,6 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../common/const_values.dart';
 
-// TODO contents 스크롤 가능하게?, 색과 노트 길이 수정
 class NotesPage extends ConsumerWidget {
   static const routeName = '/notes';
   const NotesPage({Key? key}) : super(key: key);
