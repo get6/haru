@@ -21,7 +21,7 @@ class MinuteHandShadow extends StatelessWidget {
           now: now.minute,
           size: .5,
           child: Transform.translate(
-            offset: Offset(.0, -8 * unit),
+            offset: Offset(unit, -9 * unit),
             child: Container(
               width: unit / 2,
               height: unit * 15,

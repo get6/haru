@@ -17,15 +17,18 @@ class SecondHandShadow extends StatelessWidget {
       offset: Offset(unit / 2, unit / 2),
       child: AnimatedContainerHand(
         now: now.second,
-        size: .6,
-        child: Container(
-          width: unit / 2,
-          height: double.infinity,
-          decoration: BoxDecoration(color: Colors.transparent, boxShadow: [
-            BoxShadow(
-                color: neumorphicTheme[neumorphicColor.canvas]!,
-                blurRadius: unit),
-          ]),
+        size: .5,
+        child: Transform.translate(
+          offset: Offset(unit / 4, unit * -3),
+          child: Container(
+            width: unit / 2,
+            height: double.infinity,
+            decoration: BoxDecoration(color: Colors.transparent, boxShadow: [
+              BoxShadow(
+                  color: neumorphicTheme[neumorphicColor.canvas]!,
+                  blurRadius: unit),
+            ]),
+          ),
         ),
       ),
     );

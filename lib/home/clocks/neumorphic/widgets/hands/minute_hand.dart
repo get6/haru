@@ -17,12 +17,12 @@ class MinuteHand extends StatelessWidget {
       padding: EdgeInsets.all(2 * unit),
       child: AnimatedContainerHand(
         now: now.minute,
-        size: .5,
+        size: .6,
         child: Transform.translate(
           offset: Offset(0, -7 * unit),
           child: Container(
             width: unit / 2,
-            height: unit * 13,
+            height: unit * 18,
             decoration: BoxDecoration(
               color: Colors.grey[800],
             ),

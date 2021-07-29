@@ -24,10 +24,10 @@ class HourHandShadow extends StatelessWidget {
           angleRadians:
               now.hour * radiansPerHour + (now.minute / 60) * radiansPerHour,
           child: Transform.translate(
-            offset: Offset(.0, -3 * unit),
+            offset: Offset(.0, -7 * unit),
             child: Container(
               width: 1.5 * unit,
-              height: 7 * unit,
+              height: 10 * unit,
               decoration: BoxDecoration(color: Colors.transparent, boxShadow: [
                 BoxShadow(
                   color: neumorphicTheme[neumorphicColor.canvas]!,

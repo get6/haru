@@ -29,7 +29,7 @@ class AboutPage extends StatelessWidget {
         myFuture: 'Future Application Developer',
         myEmail: 'bje0507@knou.ac.kr',
         myWords:
-            '경진대회에 참여하도록 도와주신 성준님께 감사드립니다. \n\n하루 프로젝트를 하면서 좀 더 성장한 느낌이 들었습니다. \n\n 수고 많으셨습니다!',
+            '경진대회에 참여하도록 도와주신 성준님께 감사드립니다.\n\n하루 프로젝트를 하면서 좀 더 성장한 느낌이 들었습니다.\n\n수고 많으셨습니다!',
         onFlip: () => pageFlipKey.currentState!.flip(),
       ),
     );

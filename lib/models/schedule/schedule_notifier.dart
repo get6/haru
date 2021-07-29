@@ -23,42 +23,24 @@ class ScheduleNotifier extends ChangeNotifier {
           final today = DateTime.now();
           final startTime =
               DateTime(today.year, today.month, today.day - 1, 23, 59);
-          final endTime = DateTime(today.year, today.month, today.day + 1);
-          return schedule!.startTime.isAfter(startTime) &&
-              schedule.endTime.isBefore(endTime);
+          return schedule!.startTime.isAfter(startTime);
         })
         .map((key) => storeData.get(key)!)
         .toList();
   }
 
   List<Schedule> fetchHalfDaySchedules() {
-    return storeData.keys
-        .cast<int>()
-        .where((key) {
-          final schedule = storeData.get(key);
-          final today = DateTime.now();
-          // 어제 23시 59분
-          final startTime =
-              DateTime(today.year, today.month, today.day - 1, 23, 59);
-          // 내일 00시 00분
-          final endTime = DateTime(today.year, today.month, today.day + 1);
-
-          // 어제와 내일 시간에 하나라도 틀린 경우 보여주지 않음
-          if (!schedule!.startTime.isAfter(startTime) ||
-              !schedule.endTime.isBefore(endTime)) {
-            return false;
-          }
-
-          if (today.hour >= 12) {
-            // PM
-            return 12 <= schedule.endTime.hour;
-          } else {
-            // AM
-            return 12 > schedule.endTime.hour;
-          }
-        })
-        .map((key) => storeData.get(key)!)
-        .toList();
+    final List<Schedule> schedules = fetchTodaySchedules();
+    final currentHour = DateTime.now().hour;
+    return schedules.where((schedule) {
+      if (currentHour < 12) {
+        // AM, 일정 시작시간이 12시 이전이면 표시
+        return 12 > schedule.startTime.hour;
+      } else {
+        // PM, 일정 시작시간이 12시 이후이거나 일정 종료시간이 12시 이후만 표시
+        return 12 >= schedule.startTime.hour || 12 <= schedule.endTime.hour;
+      }
+    }).toList();
   }
 
   void add(Schedule schedule) async {

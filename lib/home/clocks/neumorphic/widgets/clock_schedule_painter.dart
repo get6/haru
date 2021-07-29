@@ -20,8 +20,16 @@ class ClockSchedulePainter extends CustomPainter {
       ..style = PaintingStyle.stroke
       ..strokeWidth = hourWidth * unit;
 
-    final double sHourAngle = fixedHourAngle(schedule.startTime);
-    final double eHourAngle = fixedHourAngle(schedule.endTime);
+    // 12시가 지났는데 일정 시작시간이 12시 전이면 12시로 수정
+    final double sHourAngle =
+        12 <= DateTime.now().hour && 12 > schedule.startTime.hour
+            ? fixedHourAngle(schedule.startTime)
+            : hourAngle(schedule.startTime);
+    // 12시가 지나지않고 일정 종료시간이 12시 이후이면 12시로 수정
+    final double eHourAngle =
+        12 > DateTime.now().hour && 12 <= schedule.endTime.hour
+            ? fixedHourAngle(schedule.endTime)
+            : hourAngle(schedule.endTime);
 
     final Rect rect = Rect.fromCircle(
       center: size.center(Offset.zero),
@@ -40,19 +48,16 @@ class ClockSchedulePainter extends CustomPainter {
     return oldDelegate != this;
   }
 
-  double fixedHourAngle(DateTime dateTime) {
-    final hour = fixedHour(dateTime.hour);
-    final minute = dateTime.minute;
+  double getAngle(int hour, int minute) {
     return (hour * 30) + (.5 * minute) - 90;
   }
 
-  /// 12시간을 기준으로 AM, PM 전 후는 보여주지 않는다.
-  int fixedHour(int hour) {
-    final currentHour = DateTime.now().hour;
-    if (12 <= currentHour) {
-      // 12시를 넘긴 경우 0시부터 11시59분까지 끝나는 일정은 표현하지 않음
-      if (hour < 12) return 12;
-    }
-    return hour;
+  double hourAngle(DateTime dateTime) {
+    return getAngle(dateTime.hour, dateTime.minute);
+  }
+
+  /// 아날로그 시계에는 12시간을 기준으로 AM, PM의 12시간만 보여준다.
+  double fixedHourAngle(DateTime dateTime) {
+    return getAngle(12, 0);
   }
 }
