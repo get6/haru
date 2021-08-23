@@ -41,9 +41,8 @@ class MyApp extends StatelessWidget {
         Routes.settings: (context) => const SettingsPage(),
         Routes.notes: (context) => const NotesPage(),
         Routes.notesEdit: (context) => const NotesEditPage(),
-        Routes.about: (context) => AboutPage(
-              pageFlipKey: GlobalKey<PageFlipBuilderState>(),
-            ),
+        Routes.about: (context) =>
+            AboutPage(pageFlipKey: GlobalKey<PageFlipBuilderState>()),
       },
     );
   }

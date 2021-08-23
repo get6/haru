@@ -7,6 +7,7 @@ import 'package:haru/timer/timer_actions.dart';
 import 'package:haru/timer/timer_background.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+// TODO 웨이브 시간에 맞춰 내려가기
 class TimerPage extends ConsumerWidget {
   static const routeName = '/timer';
   const TimerPage({Key? key}) : super(key: key);
