@@ -20,7 +20,7 @@ samples, guidance on mobile development, and a full API reference.
 ### flutter_native_splash
 
 flutter pub run flutter_native_splash:create
-### flutter_launchar_icons
+### flutter_launcher_icons
 
 flutter pub run flutter_launcher_icons:main
 
